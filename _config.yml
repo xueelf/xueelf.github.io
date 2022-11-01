@@ -3,29 +3,21 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: yuki 妙妙屋
-subtitle: "We already walked too far, down to we had forgotten why embarked."
-description: ""
+title: Yuki 妙妙屋
+subtitle: ""
+description: 我わすべてを愛する
 keywords:
-  - yuki
-  - blog
-  - 博客
-  - yuki 妙妙屋
-  - yuki.sh
-  - www.yuki.sh
-  - blog.yuki.sh
-author: yuki
+author: Yuki
 language: zh-CN
 timezone: Asia/Shanghai
 
 # URL
-## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: https://blog.yuki.sh
-permalink: :year/:month/:day/:title/
+url: https://blog.yuki.sh/
+permalink: :category/:hash/
 permalink_defaults:
 pretty_urls:
-  trailing_index: true # Set to false to remove trailing 'index.html' from permalinks
-  trailing_html: true # Set to false to remove trailing '.html' from permalinks
+  trailing_index: false
+  trailing_html: false
 
 # Directory
 source_dir: source
@@ -75,7 +67,11 @@ index_generator:
 # Category & Tag
 default_category: uncategorized
 category_map:
+  笔记: note
+  其它: other
 tag_map:
+  代码: code
+  JavaScript: javascript
 
 # Metadata elements
 ## https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta
@@ -104,12 +100,11 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: landscape
+theme: next
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
-  type: git
-  repo: https://github.com/dcyuki/yuki.github.io.git
+  type: "git"
+  repo: https://github.com/dcyuki/dcyuki.github.io
   branch: gh-pages
-  message:
