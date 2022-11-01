@@ -14,7 +14,7 @@ favicon:
   medium: /images/favicon-32x32-yuki.png
   apple_touch_icon: /images/apple-touch-icon-yuki.png
   safari_pinned_tab: /images/logo.svg
-  android_manifest: /images/manifest.json
+  # android_manifest: /images/manifest.json
 
 creative_commons:
   # Available values: by | by-nc | by-nc-nd | by-nc-sa | by-nd | by-sa | cc-zero
