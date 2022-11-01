@@ -77,7 +77,7 @@ footer:
 # ============================================================= #
 post_edit:
   enable: true
-
+  url: https://github.com/dcyuki/dcyuki.github.io/tree/master/source/
 # Miscellaneous
 mobile_layout_economy: true
 
