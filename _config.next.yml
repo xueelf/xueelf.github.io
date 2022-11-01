@@ -1,0 +1,121 @@
+# https://theme-next.js.org/docs/theme-settings/
+
+# Allow to cache content generation.
+cache:
+  enable: true
+
+#scheme: Muse
+# scheme: Mist
+# scheme: Pisces
+scheme: Gemini
+
+favicon:
+  small: /images/favicon-16x16-yuki.png
+  medium: /images/favicon-32x32-yuki.png
+  apple_touch_icon: /images/apple-touch-icon-yuki.png
+  safari_pinned_tab: /images/logo.svg
+  android_manifest: /images/manifest.json
+
+creative_commons:
+  # Available values: by | by-nc | by-nc-nd | by-nc-sa | by-nd | by-sa | cc-zero
+  license: by-nc-sa
+  # Available values: big | small
+  size: small
+  sidebar: false
+  post: true
+  language: deed.zh
+
+open_graph:
+  enable: true
+  # Add pairs each line to customize
+  options:
+    type: blog
+
+menu:
+  home: / || fa fa-home
+  # about: /about/ || fa fa-user
+  tags: /tags/ || fa fa-tags
+  categories: /categories/ || fa fa-th
+  archives: /archives/ || fa fa-archive
+  # schedule: /schedule/ || fa fa-calendar
+  # sitemap: /sitemap.xml || fa fa-sitemap
+  # commonweal: /404/ || fa fa-heartbeat
+
+# Sidebar
+sidebar:
+  position: left
+  #position: right
+
+avatar:
+  url: https://q1.qlogo.cn/g?b=qq&nk=2225151531&s=5
+  rounded: true
+
+site_state: true
+
+social:
+  GitHub: https://github.com/dcyuki || fab fa-github
+  E-Mail: mailto:mail@yuki.sh || fa fa-envelope
+  Weibo: https://weibo.com/u/3899090989 || fab fa-weibo
+  Twitter: https://twitter.com/dacapo_yuki || fab fa-twitter
+
+toc:
+  enable: true
+
+# ============================================================= #
+# ====================== Footer Settings ====================== #
+# ============================================================= #
+
+footer:
+  since: 2022
+  icon:
+    name: fa fa-heart
+    animated: true
+    color: "#808080"
+
+# ============================================================= #
+# ======================= Post Settings ======================= #
+# ============================================================= #
+post_edit:
+  enable: true
+
+# Miscellaneous
+mobile_layout_economy: true
+
+theme_color:
+  light: "#6495ED"
+  dark: "#6495ED"
+
+back2top:
+  enable: true
+
+reading_progress:
+  enable: true
+  # Available values: left | right
+  start_at: left
+  # Available values: top | bottom
+  position: top
+  reversed: false
+  color: "#6495ED"
+  height: 2px
+
+  # Follow me on GitHub banner in right-top corner.
+github_banner:
+  enable: true
+  permalink: https://github.com/dcyuki/dcyuki.github.io
+  title: Follow me on GitHub
+
+# Gitalk
+# For more information: https://gitalk.github.io
+gitalk:
+  enable: true
+  github_id: dcyuki
+  repo: dcyuki.github.io
+  client_id: b10bc916ad463885a07a
+  client_secret: bc6aa521fe39be9e999d12e08c7004bb0a369ec8
+  admin_user:
+    - dcyuki
+  distraction_free_mode: true
+  proxy: https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token
+  # If you want everyone visiting your site to see a uniform language, you can set a force language value
+  # Available values: en | es-ES | fr | ru | zh-CN | zh-TW
+  language:
