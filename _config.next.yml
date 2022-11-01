@@ -112,8 +112,7 @@ gitalk:
   repo: dcyuki.github.io
   client_id: b10bc916ad463885a07a
   client_secret: bc6aa521fe39be9e999d12e08c7004bb0a369ec8
-  admin_user:
-    - dcyuki
+  admin_user: dcyuki
   distraction_free_mode: true
   proxy: https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token
   # If you want everyone visiting your site to see a uniform language, you can set a force language value
