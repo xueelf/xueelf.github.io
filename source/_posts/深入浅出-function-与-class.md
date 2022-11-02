@@ -38,7 +38,7 @@ function Phone() { }
 console.log(Phone.prototype); // {constructor: ƒ}
 ```
 
-ES6 提供了更接近传统语言的写法，引入了 Class（类）这个概念，作为对象的模板。通过 `class` 关键字，可以定义类。
+ES6 提供了更接近传统语言的写法，引入了 class 这个概念，作为对象的模板。通过 `class` 关键字，可以定义类。
 
 基本上，ES6 的 class 可以看作只是一个语法糖，它的绝大部分功能，ES5 都可以做到，新的class写法只是让对象原型的写法更加清晰、更像面向对象编程的语法而已。上面的代码用 ES6 的 class 改写，就是下面这样。
 
@@ -57,7 +57,7 @@ const huawei = new Phone('huawei');
 huawei.call(); // hello world from huawei
 ```
 
-这种新的 Class 写法，本质上与文章开头的 ES5 的构造函数 Phone 是一致的，ES6 的类，完全可以看作构造函数的另一种写法。
+这种新的 class 写法，本质上与文章开头的 ES5 的构造函数 Phone 是一致的，ES6 的类，完全可以看作构造函数的另一种写法。
 
 ```javascript
 class Phone { }
@@ -66,7 +66,7 @@ console.log(typeof Phone); // "function"
 console.log(Phone === Phone.prototype.constructor); // true
 ```
 
-上面代码表明，类的数据类型就是函数，类本身就指向构造函数。使用的时候，也是直接对类使用 `new` 命令，跟构造函数的用法完全一致。
+上面代码表明，类的数据类型就是函数，类本身就指向构造函数。使用的时候，也是直接对类使用 `new` 关键字，跟构造函数的用法完全一致。
 
 ## constructor() 方法
 
@@ -138,8 +138,6 @@ console.log(xiaomi.__proto__ === huawei.__proto__); // true
 上面代码中，xiaomi 和 huawei 都是 Phone 的实例，它们的原型都是 Phone.prototype，所以 \_\_proto\_\_ 属性是相等的。
 
 这也意味着，可以通过实例的 \_\_proto\_\_ 属性为 class 添加方法。
-
-> \_\_proto\_\_ 并不是语言本身的特性，这是各大厂商具体实现时添加的私有属性，虽然目前很多现代浏览器的 JS 引擎中都提供了这个私有属性，但依旧不建议在生产中使用该属性，避免对环境产生依赖。生产环境中，可以使用 Object.getPrototypeOf() 方法来获取实例对象的原型，然后再来为原型添加方法/属性。
 
 ```javascript
 const xiaomi = new Phone('xiaomi');
