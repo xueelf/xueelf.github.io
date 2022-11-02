@@ -1,0 +1,301 @@
+---
+title: 诡计多端的 var
+category:
+  - 笔记
+tags:
+  - 代码
+  - JavaScript
+date: 2022-11-02 13:54:08
+---
+如果你使用过 Swift 或者 C#，那么你一定对 var 非常熟悉。var 是 variable 或者是 variation 的简写，在编程语言中多用于定义变量的关键字，在一些操作系统中也能见到它的身影。
+
+JavaScript 中也可以使用 `var` 来声明变量，不仅限于此，还有 `let`、`const` 共三种方式创建变量。而如今却很少在 JS 中见到 `var` 的身影，这又是为什么？
+
+<!-- more -->
+
+## var 的由来
+
+`var` 声明与 `let` 相似，大部分情况下，我们可以用 `let` 代替 `var` 或者 `var` 代替 `let`，都能达到预期的效果。
+
+```javascript
+var world = 'world';
+let sekai = '西园寺世界';
+
+console.log(world); // world
+console.log(sekai); // 西园寺世界
+```
+
+但实际上 `var` 却是一头远古巨兽，JavaScript 在设计初期，作为一门网页脚本语言并未做过多的考虑。随着时间的推移，项目中大量使用 `var` 会导致许多诡异的问题，从而促使了 `let` 与 `const` 的诞生。
+
+现如今，虽然在各大项目中已经很难看到 var 的身影，但你在百度上或者公司的祖传代码里依然能看到它的身影。如果你在百度搜代码看到有人还在教你使用 var 甚至是 Dreamweaver 写代码...直接关掉吧，不用看了，那篇文章只是在浪费你的时间。
+
+这不由得让我想起当年教我 Java 的讲师，用的 MyEclipse 2012 + Tomcat 1.6 + JDK 1.6 开发，每次有人提出疑问都蜜汁自信说自己有十年开发经验，不可能出错。
+
+<span style="background: #000; color: #000;">低情商：用的都是十年前的老技术</span>
+<span style="background: #000; color: #000;">高情商：十年开发经验高级工程师</span>
+<span style="background: #000; color: #000;">他甚至连 class 都不 new！什么数据都直接塞 Map 里去传值，写 SQL 不换行，还一脸自信的说 "你们看我多厉害，一行就写完了"（指三张表联查 + 一大堆条件语句不换行）</span>
+
+当然，也并不是说使用 var 不好，任何事物存在就有着自身的价值。Babel 以及 TypeScript 等库在编译后都多少会使用到 var 来声明变量，因为有着极强的兼容性。不过除开这种情况使用 var 就完全没必要了。~~我可从没说过只要用 var 声明变量的都是辣鸡啊，你们不要乱说啊~~
+
+## 作用域
+
+在 ES6 之前，JavaScript 的变量作用域是非常笼统的，只有 **全局变量** 与 **函数变量**。
+
+而 `var` 坑就坑在它没有块级作用域，用 `var` 声明变量的变量不是函数作用域就是全局作用域。
+
+```javascript
+for (var i = 0; i < 10; i++) { }
+console.log(i); // 10
+```
+
+上列就是一个最简单的例子，for 循环都结束了，却仍然可以访问到变量 i。试想一下，如果变量名不是用的 i，而是开发中最为常见的 item 会怎么样？
+
+```html
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+
+<body>
+  <ul>
+    <li>li1</li>
+    <li>li2</li>
+    <li>li3</li>
+  </ul>
+
+  <script type="text/javascript">
+    var lis = document.querySelectorAll('li');
+
+    for (var i = 0; i < lis.length; i++) {
+      lis[i].addEventListener('click', function () {
+        lis[i].style.background = 'skyblue';
+      });
+    }
+  </script>
+</body>
+
+</html>
+```
+
+再来看这段代码，可以说这段代码在以前是非常常见的，如果你接触编程比较早甚至还觉得非常亲切 ~~为了复古我甚至都在 script 里加了 type="text/javascript"~~，要实现的功能也很简单，为每个 li 标签加上点击事件，当该 li 被点击时修改当前的背景颜色。
+
+看着没什么问题对吧？但当你点击后控制台会提示 `Uncaught TypeError: Cannot read properties of undefined (reading 'style')`。
+
+这算是一个老生常谈的问题了，只要以前写过 ES5 都遇到过，也都知道该怎么避免。
+
+当该段代码执行时仅仅是为标签元素绑定了 click 事件，但并未执行该函数。当页面元素被点击后会从 lis 集合里寻找下标为 i 的元素并修改颜色。这时 i 的值是多少呢？没错，3，但并不存在下标为 3 的 li 元素，所以就抛 undefined 了。
+
+要解决这个问题也很简单，使用闭包，因为 var 会受到函数作用域的影响。
+
+```html
+<script type="text/javascript">
+  var lis = document.getElementsByTagName('li');
+
+  for (var i = 0; i < lis.length; i++) {
+    (function (j) {
+      lis[j].addEventListener('click', function () {
+        lis[j].style.background = 'skyblue';
+      });
+    })(i);
+  }
+</script>
+```
+
+哦，我的老伙计，尽管这段代码能顺利跑起来了，但这只是简单的修改样式。我发誓，如果，我是说如果，要是代码逻辑稍微复杂一点，后面项目维护起来，那一定和写小程序一样难受，就像隔壁苏珊太太的苹果派那样糟糕。
+
+## ES6 YES
+
+```html
+<script>
+  const lis = document.querySelectorAll('li');
+
+  for (let i = 0; i < lis.length; i++) {
+    lis[j].addEventListener('click', () => {
+      lis[j].style.background = 'skyblue';
+    });
+  }
+</script>
+```
+
+这是一种比较现代的写法，`let` 和 `const` 都拥有块级作用域，所以完全避免了变量污染的问题。
+
+## 重新声明
+
+除了作用域导致的变量污染，`var` 还有一个奇怪的特性，就是变量允许重复声明。
+
+```javascript
+var liangfen = 1;
+var liangfen = 2; // 这个 "var" 无效，因为变量已经声明过了（我说你吃了两碗凉粉那就是两碗）
+
+console.log(liangfen); // 2
+```
+
+使用 `var`，我们可以重复声明一个变量，不管多少次都行。如果对一个已经声明的变量使用 `var`，这条新的声明语句会被忽略。
+
+```javascript
+// SyntaxError
+let liangfen = 1;
+let liangfen = 2;
+```
+
+而使用 `let` 会直接提示语法错误，非常的银杏。（我就吃了一碗粉你凭什么说我吃了两碗？）
+
+## 变量提升
+
+当函数开始的时候，就会处理 var 声明（脚本启动对应全局变量）
+
+换言之，var 声明的变量会在函数开头被定义，与它在代码中定义的位置无关（这里不考虑定义在嵌套函数中的情况）。
+
+```javascript
+function foo() {
+  message = 'hello world';
+
+  console.log(message);
+
+  var message;
+}
+foo();
+```
+
+它与下面这种情况是等价的（var message 被上移至函数开头）
+
+```javascript
+function foo() {
+  var message;
+  message = 'hello world';
+
+  console.log(message);
+}
+foo();
+```
+
+甚至与这种情况也一样（代码块会被忽略）
+
+```javascript
+function foo() {
+  message = 'hello world';
+
+  if (false) {
+    var message;
+  }
+  console.log(message);
+}
+foo();
+```
+
+这种行为被称之为 "提升"(英文为 hoisting 或 raising)，因为所有的 var 都被 "提升"到了函数的顶部。
+
+声明会被提升，但是赋值不会。
+
+```javascript
+function foo() {
+  console.log(message);
+  var message = 'hello world';
+}
+
+foo();
+```
+
+`var message = 'hello world'` 这行代码包含两个行为：
+
+1. 使用 `var` 声明变量  
+2. 使用 `=` 给变量赋值
+
+声明在函数刚开始执行的时候 "提升" 就被处理了，但是赋值操作始终是在它出现的地方才起作用。所以这段代码实际上是这样工作的：
+
+```javascript
+function foo() {
+  var message;
+
+  console.log(message); // undefined
+  message = 'hello world'; // 赋值
+}
+
+foo();
+```
+
+因为所有的 `var` 声明都是在函数开头处理的，我们可以在任何地方引用它们。但是在它们被赋值之前都是 undefined。
+
+所以就算你写出了这种代码，它也不会报错。
+
+```javascript
+console.log(message); // undefined
+var message = 'hello world';
+```
+
+而使用 `let` 会直接提示结构错误，非常的银杏。
+
+```javascript
+// ReferenceError
+console.log(message);
+let message = 'hello world'; 
+```
+
+## 暂时性死区
+
+只要块级作用域内存在 `let` 关键字，它所声明的变量就绑定了这个区域，不再受外部的影响。
+
+```javascript
+// ReferenceError
+var message = 'hello world';
+
+if (true) {
+  message = '西园寺世界';
+  let message;
+}
+```
+
+ES6 明确规定，如果区块中存在 `let` 和 `const` 关键字，这个区块对这些关键字声明的变量，从一开始就形成了封闭作用域。凡是在声明之前就使用这些变量，就会报错。
+
+在代码块内，使用 `let` 关键字声明变量之前，该变量都是不可用的。这在语法上，称为 "暂时性死区"（temporal dead zone，简称 TDZ）。
+
+在没有 `let` 之前，`typeof` 运算符是百分之百安全的，永远不会报错。现在这一点不成立了。这样的设计是为了让大家养成良好的编程习惯，变量一定要在声明之后使用，否则就报错。
+
+```javascript
+// ReferenceError
+typeof message;
+let message;
+```
+
+有些 "死区" 比较隐蔽，不太容易发现。
+
+```javascript
+function foo(x = y, y = 2) {
+  return [x, y];
+}
+
+foo(); // ReferenceError
+```
+
+上面代码与前面的有所不同，直到 foo 函数被调用前，始终都不会出现报错，是可以通过语法编译的。而报错是因为参数 x 默认值等于另一个参数 y，而此时 y 还没有声明，属于 "死区"。如果 y 的默认值是 x，就不会报错，因为此时 x 已经声明了。
+
+## 常量
+
+在 ES6 之前，JavaScript 内所有数据都是变量，可以修改任意值。而 `const` 关键字用来声明常量，一旦被声明，值将无法更改。
+
+```javascript
+const message = 'hello world';
+message = '西园寺世界'; // TypeError
+```
+
+为什么 Object 和 Array 可以随意修改值？因为这两类是引用类型，并非基础数据类型，引用类型内部的值不管怎么变，其引用地址都是不变的。
+
+```javascript
+const wifes = ['镜华'];
+const harem = wifes;
+
+wifes.push('美美');
+wifes.push('未奏希');
+
+console.log(harem); // ['镜华', '美美', '未奏希']
+console.log(harem === wifes); // true
+```
+
+当然，这是 JavaScript 的基础知识，由此可以引申出深拷贝与浅拷贝，但并不与本文章相关，便不在此做过多的赘述。~~才不是因为懒呢~~
+
+## 参考文献
+
+- [现代 JavaScript 教程](https://zh.javascript.info/var)
