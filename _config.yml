@@ -67,7 +67,7 @@ index_generator:
 # Category & Tag
 default_category: uncategorized
 category_map:
-  笔记: note
+  笔记: notes
   其它: other
 tag_map:
   代码: code
@@ -108,3 +108,9 @@ deploy:
   type: "git"
   repo: https://github.com/dcyuki/dcyuki.github.io
   branch: gh-pages
+
+search:
+  path: search.xml
+  field: post
+  content: true
+  format: html
