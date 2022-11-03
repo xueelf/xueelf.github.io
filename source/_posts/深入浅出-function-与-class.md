@@ -40,7 +40,7 @@ console.log(Phone.prototype); // {constructor: ƒ}
 
 ES6 提供了更接近传统语言的写法，引入了 class 这个概念，作为对象的模板。通过 `class` 关键字，可以定义类。
 
-基本上，ES6 的 class 可以看作只是一个语法糖，它的绝大部分功能，ES5 都可以做到，新的class写法只是让对象原型的写法更加清晰、更像面向对象编程的语法而已。上面的代码用 ES6 的 class 改写，就是下面这样。
+基本上，ES6 的 class **可以看作** 只是一个语法糖，它的绝大部分功能，ES5 都可以做到，新的class写法只是让对象原型的写法更加清晰、更像面向对象编程的语法而已。上面的代码用 ES6 的 class 改写，就是下面这样。
 
 ```javascript
 class Phone {
@@ -57,7 +57,7 @@ const huawei = new Phone('huawei');
 huawei.call(); // hello world from huawei
 ```
 
-这种新的 class 写法，本质上与文章开头的 ES5 的构造函数 Phone 是一致的，ES6 的类，完全可以看作构造函数的另一种写法。
+这种新的 class 写法，本质上与文章开头的 ES5 的构造函数 Phone 是一致的，ES6 的类，**可以看作** 构造函数的另一种写法。
 
 ```javascript
 class Phone { }
@@ -83,15 +83,66 @@ class Phone {
 
 上面代码中，定义了一个空的类 Phone，JavaScript 引擎会自动为它添加一个空的 constructor() 方法，该方法默认返回实例对象（this）
 
-## 实例对象
+## 语法糖，但没完全语法糖
 
-类实例化的写法 ES5 与 ES6 完全一样，都是使用 new 关键字。Class 必须使用 new 关键字调用，否则会报错。这是它与普通构造函数的一个主要区别，前者不用 new 也可以执行。
+不管是百度也好，各大培训机构也好，人们都常说 class 是一个语法糖，因为完全可以在不使用 class 的情况下用 function 实现同样的效果。
+
+不过，这两者间并不能完全划等号，它们也有着些许不同。通过 class 创建的函数具有特殊的内部属性标记 `[[IsClassConstructor]]: true`。编程语言会在许多地方检查该属性。
+
+例如，与普通函数不同，必须使用 new 来调用它。这是它与普通构造函数的一个主要区别，前者不用 new 也可以执行。
 
 ```javascript
 class Phone { }
 
-Phone() // Uncaught TypeError: Class constructor Phone cannot be invoked without 'new'
+Phone(); // TypeError: Class constructor Phone cannot be invoked without 'new'
 ```
+
+类始终都执行在严格模式下。比如，构造函数，静态方法，原型方法，getter 和 setter 都在严格模式下执行。
+
+```javascript
+class Phone {
+  constructor() {
+    var a, x, y;
+    var r = 10;
+
+    // SyntaxError: Strict mode code may not include a with statement
+    with (Math) {
+      a = PI * r * r;
+      x = r * cos(PI);
+      y = r * sin(PI / 2);
+    }
+  }
+}
+```
+
+类方法不可枚举，类定义将 prototype 中的所有方法的 enumerable 标志设置为 false。
+
+```javascript
+function PhoneFnc(brand) {
+  this.brand = brand;
+}
+
+PhoneFnc.prototype.call = function () {
+  console.log('hello world from', this.brand);
+};
+
+class PhoneCls {
+  constructor(brand) {
+    this.brand = brand;
+  }
+
+  call() {
+    console.log(`hello world from ${this.brand}`);
+  }
+}
+
+console.log(PhoneFnc.prototype); // {constructor: ƒ, call: ƒ}
+console.log(PhoneCls.prototype); // {constructor: ƒ, call: ƒ}
+console.log(Object.keys(PhoneFnc.prototype)); // ['call']
+console.log(Object.keys(PhoneCls.prototype)); // []
+```
+
+## 实例对象
 
 类的属性和方法，除非显式定义在其本身 this 上，否则都是定义在 \_\_proto\_\_ 原型上。
 
@@ -114,7 +165,7 @@ huawei.hasOwnProperty('call'); // false
 huawei.__proto__.hasOwnProperty('call') // true
 ```
 
-上面代码中，brand 是实例对象 huawei 自身的属性（因为定义在this对象上），所以 hasOwnProperty() 方法返回 true，而 call() 是原型对象的属性（因为定义在 Phone 类上），所以 hasOwnProperty() 方法返回false。这些都与 ES5 的行为保持一致。
+上面代码中，brand 是实例对象 huawei 自身的属性（因为定义在 this 对象上），所以 hasOwnProperty() 方法返回 true，而 call() 是原型对象的属性（因为定义在 Phone 类上），所以 hasOwnProperty() 方法返回false。这些都与 ES5 的行为保持一致。
 
 与 ES5 一样，类的所有实例共享一个原型对象。
 
@@ -154,11 +205,15 @@ nokia.camera(); // "LYCRA is so cooooool ♪(o∀o)っ"
 
 上面代码在 xiaomi 的原型上添加了一个 camera() 方法，由于 xiaomi 的原型就是 huawei 的原型，因此 huawei 也可以调用这个方法。而且，此后新建的实例 nokia 也可以调用这个方法。这意味着，使用实例的 \_\_proto\_\_ 属性改写原型，必须相当谨慎，不推荐使用，因为这会改变 class 的原始定义，影响到所有实例。~~不是所有相机都叫莱卡~~
 
+## 继承
+
+> TODO
+
 ## 还没想好怎么写 |ू･ω･` )
 
 > TODO
 
 ## 参考文献
 
-- [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/prototype)
+- [MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Classes)
 - [ECMAScript 6 入门](https://es6.ruanyifeng.com/#docs/class)

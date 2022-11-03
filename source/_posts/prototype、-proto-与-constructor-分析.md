@@ -38,7 +38,7 @@ function Foo() { }; // 等价于 new Function()
 
 console.log(Foo instanceof Object); // true
 console.log(Foo.__proto__ === Function.prototype); // true
-console.log(Foo.prototype); // {constructor: ƒ Foo(); [[Prototype]]: Object}
+console.log(Foo.prototype); // {constructor: ƒ Foo(), [[Prototype]]: Object}
 ```
 
 对象的 \_\_proto\_\_ 属性是创建对象时自动添加的，默认值为其构造函数的 prototype。函数的 prototype 属性是定义时自动添加的，默认为 { }，一层一层的 \_\_proto\_\_ 便形成了原型链。
@@ -78,7 +78,7 @@ constructor 属性也是对象才拥有的，它是从一个对象指向一个�
 
 ## ES6
 
-不过在 ES6 中引入了 Class 这个概念，能让定义类更接近传统写法，其本质也只是构造函数的语法糖，最后还是绕不开原型链。
+不过在 ES6 中引入了 class 这个概念，能让定义类更接近传统写法，其本质也只是构造函数的语法糖，最后还是绕不开原型链。
 
 有兴趣你可以查阅 [深入浅出 function 与 class](./function-%E4%B8%8E-class-%E7%9A%84%E5%8C%BA%E5%88%AB.md) 一栏
 
