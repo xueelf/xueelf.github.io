@@ -103,8 +103,8 @@ codeblock:
   # Code Highlight theme
   # All available themes: https://theme-next.js.org/highlight/
   theme:
-    light: base16/unikitty-light
-    dark: base16/unikitty-dark
+    light: base16/atelier-dune-light
+    dark: base16/atelier-dune
   prism:
     light: prism
     dark: prism-dark
