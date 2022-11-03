@@ -73,10 +73,13 @@ index_generator:
 default_category: uncategorized
 category_map:
   笔记: note
+  教程: course
   其它: other
 tag_map:
   代码: code
   JavaScript: javascript
+  反向代理: reverseproxy
+  Pixiv: pixiv
 
 # Metadata elements
 ## https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta
