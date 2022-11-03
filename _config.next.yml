@@ -4,6 +4,10 @@
 cache:
   enable: true
 
+# ============================================================= #
+# ====================== Scheme Settings ====================== #
+# ============================================================= #
+
 #scheme: Muse
 # scheme: Mist
 # scheme: Pisces
@@ -16,6 +20,10 @@ favicon:
   safari_pinned_tab: /images/logo.svg
   # android_manifest: /images/manifest.json
 
+# ============================================================= #
+# ================= Site Information Settings ================= #
+# ============================================================= #
+
 creative_commons:
   # Available values: by | by-nc | by-nc-nd | by-nc-sa | by-nd | by-sa | cc-zero
   license: by-nc-sa
@@ -27,9 +35,12 @@ creative_commons:
 
 open_graph:
   enable: true
-  # Add pairs each line to customize
   options:
     type: blog
+
+# ============================================================= #
+# ======================= Menu Settings ======================= #
+# ============================================================= #
 
 menu:
   home: / || fa fa-home
@@ -41,7 +52,10 @@ menu:
   # sitemap: /sitemap.xml || fa fa-sitemap
   # commonweal: /404/ || fa fa-heartbeat
 
-# Sidebar
+# ============================================================= #
+# ===================== Sidebar Settings ====================== #
+# ============================================================= #
+
 sidebar:
   position: left
   #position: right
@@ -84,6 +98,18 @@ mobile_layout_economy: true
 theme_color:
   light: "#6495ED"
   dark: "#6495ED"
+
+codeblock:
+  # Code Highlight theme
+  # All available themes: https://theme-next.js.org/highlight/
+  theme:
+    light: base16/unikitty-light
+    dark: base16/unikitty-dark
+  prism:
+    light: prism
+    dark: prism-dark
+  copy_button:
+    enable: true
 
 back2top:
   enable: true
@@ -167,3 +193,11 @@ local_search:
   unescape: false
   # Preload the search data when the page loads.
   preload: false
+
+# ============================================================= #
+# ============================ SEO ============================ #
+# ============================================================= #
+
+index_with_subtitle: true
+google_site_verification: lfXOm0UB31IUvMF_99jdAPtrv761MQ7Do40C7Jepqi0
+baidu_site_verification: code-68kTD7oJfw
