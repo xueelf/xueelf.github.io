@@ -104,21 +104,6 @@ github_banner:
   permalink: https://github.com/dcyuki/dcyuki.github.io
   title: Follow me on GitHub
 
-# Gitalk
-# For more information: https://gitalk.github.io
-gitalk:
-  enable: true
-  github_id: dcyuki
-  repo: dcyuki.github.io
-  client_id: b10bc916ad463885a07a
-  client_secret: bc6aa521fe39be9e999d12e08c7004bb0a369ec8
-  admin_user: dcyuki
-  distraction_free_mode: true
-  proxy: https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token
-  # If you want everyone visiting your site to see a uniform language, you can set a force language value
-  # Available values: en | es-ES | fr | ru | zh-CN | zh-TW
-  language:
-
 # Easily enable fast Ajax navigation on your website.
 # For more information: https://github.com/next-theme/pjax
 pjax: true
@@ -153,3 +138,32 @@ motion:
 
 pace:
   enable: true
+
+# ============================================================= #
+# =============== Third Party Services Settings =============== #
+# ============================================================= #
+
+gitalk:
+  enable: true
+  github_id: dcyuki
+  repo: dcyuki.github.io
+  client_id: b10bc916ad463885a07a
+  client_secret: bc6aa521fe39be9e999d12e08c7004bb0a369ec8
+  admin_user: dcyuki
+  distraction_free_mode: true
+  proxy: https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token
+  language:
+
+# Local search
+# Dependencies: https://github.com/next-theme/hexo-generator-searchdb
+local_search:
+  enable: true
+  # If auto, trigger search by changing input.
+  # If manual, trigger search by pressing enter key or search button.
+  trigger: auto
+  # Show top n results per article, show all results by setting to -1
+  top_n_per_article: 1
+  # Unescape html strings to the readable one.
+  unescape: false
+  # Preload the search data when the page loads.
+  preload: false
