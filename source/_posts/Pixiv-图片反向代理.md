@@ -78,7 +78,7 @@ addEventListener('fetch', event => {
 
 ## 我要色色！
 
-配置相关 DNS 解析后，就可以直接在国内通过 URL 直接访问 p 站图片了。
+配置相关 DNS 解析后，就可以直接通过 URL 直接访问 p 站图片了。
 
 Pixiv 网站上的原始链接（直接打开或在其他网站使用会返回 403）：  
 https://i.pximg.net/img-master/img/2021/06/10/18/09/04/90457556_p0_master1200.jpg
