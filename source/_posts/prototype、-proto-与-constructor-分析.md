@@ -23,22 +23,24 @@ Javascript 里面所有的数据类型都是 "对象"(object)，这一点与 Jav
 
 ```javascript
 const number = new Number(114514);
-const array = [19, 19, 810]; // 等价于 new Array(19, 19, 810)
+// 等价于 const array = new Array(19, 19, 810);
+const array = [19, 19, 810];
 const string = new String('哼哼哼啊');
 
-console.log(number instanceof Object); // true
-console.log(array instanceof Object); // true
-console.log(string instanceof Object); // true
+console.log(number instanceof Object); // => true
+console.log(array instanceof Object); // => true
+console.log(string instanceof Object); // => true
 ```
 
 函数也是对象，较为特殊的是，除了 \_\_proto\_\_ 和 constructor，函数还有 prototype 这个独有属性。prototype 是显式原型，\_\_proto\_\_ 是隐式原型。
 
 ```javascript
-function Foo() { }; // 等价于 new Function()
+// 等价于 var foo = new Function();
+function Foo() { };
 
-console.log(Foo instanceof Object); // true
-console.log(Foo.__proto__ === Function.prototype); // true
-console.log(Foo.prototype); // {constructor: ƒ Foo(), [[Prototype]]: Object}
+console.log(Foo instanceof Object); // => true
+console.log(Foo.__proto__ === Function.prototype); // => true
+console.log(Foo.prototype); // => {constructor: ƒ Foo(), [[Prototype]]: Object}
 ```
 
 对象的 \_\_proto\_\_ 属性是创建对象时自动添加的，默认值为其构造函数的 prototype。函数的 prototype 属性是定义时自动添加的，默认为 { }，一层一层的 \_\_proto\_\_ 便形成了原型链。
@@ -51,7 +53,7 @@ Foo.prototype.test = function () {
 };
 
 var foo = new Foo();
-foo.test(); // hello world
+foo.test(); // => hello world
 ```
 
 prototype 的作用就是包含可以由特定类型的所有实例共享的属性和方法，也就是让该函数所实例化的对象们都可以找到公用的属性和方法。
@@ -59,7 +61,7 @@ prototype 的作用就是包含可以由特定类型的所有实例共享的属�
 值得一提的是，Object 的原型是 null，因为它是原型链的最顶端。
 
 ```javascript
-console.log(Object.prototype.__proto__ === null); // true
+console.log(Object.prototype.__proto__ === null); // => true
 ```
 
 ## \[\[prototype\]\] 与 \_\_proto\_\_

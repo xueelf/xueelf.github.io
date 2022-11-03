@@ -27,7 +27,7 @@ Phone.prototype.call = function () {
 };
 
 var xiaomi = new Phone('xiaomi');
-xiaomi.call(); // hello world from xiaomi
+xiaomi.call(); // => hello world from xiaomi
 ```
 
 各类变量中，只有 function 函数才有 prototype 属性，原型属性上又有着 constructor() 方法，而这很容易让新学习这门语言的程序员感到困惑。
@@ -35,7 +35,7 @@ xiaomi.call(); // hello world from xiaomi
 ```javascript
 function Phone() { }
 
-console.log(Phone.prototype); // {constructor: ƒ}
+console.log(Phone.prototype); // => {constructor: ƒ}
 ```
 
 ES6 提供了更接近传统语言的写法，引入了 class 这个概念，作为对象的模板。通过 `class` 关键字，可以定义类。
@@ -54,7 +54,7 @@ class Phone {
 }
 
 const huawei = new Phone('huawei');
-huawei.call(); // hello world from huawei
+huawei.call(); // => hello world from huawei
 ```
 
 这种新的 class 写法，本质上与文章开头的 ES5 的构造函数 Phone 是一致的，ES6 的类，**可以看作** 构造函数的另一种写法。
@@ -62,8 +62,8 @@ huawei.call(); // hello world from huawei
 ```javascript
 class Phone { }
 
-console.log(typeof Phone); // "function"
-console.log(Phone === Phone.prototype.constructor); // true
+console.log(typeof Phone); // => "function"
+console.log(Phone === Phone.prototype.constructor); // => true
 ```
 
 上面代码表明，类的数据类型就是函数，类本身就指向构造函数。使用的时候，也是直接对类使用 `new` 关键字，跟构造函数的用法完全一致。
@@ -94,7 +94,8 @@ class Phone {
 ```javascript
 class Phone { }
 
-Phone(); // TypeError: Class constructor Phone cannot be invoked without 'new'
+// TypeError: Class constructor Phone cannot be invoked without 'new'
+Phone();
 ```
 
 类始终都执行在严格模式下。比如，构造函数，静态方法，原型方法，getter 和 setter 都在严格模式下执行。
@@ -136,10 +137,10 @@ class PhoneCls {
   }
 }
 
-console.log(PhoneFnc.prototype); // {constructor: ƒ, call: ƒ}
-console.log(PhoneCls.prototype); // {constructor: ƒ, call: ƒ}
-console.log(Object.keys(PhoneFnc.prototype)); // ['call']
-console.log(Object.keys(PhoneCls.prototype)); // []
+console.log(PhoneFnc.prototype); // => {constructor: ƒ, call: ƒ}
+console.log(PhoneCls.prototype); // => {constructor: ƒ, call: ƒ}
+console.log(Object.keys(PhoneFnc.prototype)); // => ['call']
+console.log(Object.keys(PhoneCls.prototype)); // => []
 ```
 
 ## 实例对象
@@ -159,10 +160,10 @@ class Phone {
 
 const huawei = new Phone('huawei');
 
-huawei.call(); // hello world from huawei
-huawei.hasOwnProperty('brand'); // true
-huawei.hasOwnProperty('call'); // false
-huawei.__proto__.hasOwnProperty('call') // true
+huawei.call(); // => hello world from huawei
+huawei.hasOwnProperty('brand'); // => true
+huawei.hasOwnProperty('call'); // => false
+huawei.__proto__.hasOwnProperty('call') // => true
 ```
 
 上面代码中，brand 是实例对象 huawei 自身的属性（因为定义在 this 对象上），所以 hasOwnProperty() 方法返回 true，而 call() 是原型对象的属性（因为定义在 Phone 类上），所以 hasOwnProperty() 方法返回false。这些都与 ES5 的行为保持一致。
@@ -183,7 +184,7 @@ class Phone {
 const xiaomi = new Phone('xiaomi');
 const huawei = new Phone('huawei');
 
-console.log(xiaomi.__proto__ === huawei.__proto__); // true
+console.log(xiaomi.__proto__ === huawei.__proto__); // => true
 ```
 
 上面代码中，xiaomi 和 huawei 都是 Phone 的实例，它们的原型都是 Phone.prototype，所以 \_\_proto\_\_ 属性是相等的。
@@ -196,11 +197,11 @@ const huawei = new Phone('huawei');
 
 xiaomi.__proto__.camera = () => console.log('LYCRA is so cooooool ♪(o∀o)っ');
 
-xiaomi.camera(); // "LYCRA is so cooooool ♪(o∀o)っ"
-huawei.camera(); // "LYCRA is so cooooool ♪(o∀o)っ"
+xiaomi.camera(); // => "LYCRA is so cooooool ♪(o∀o)っ"
+huawei.camera(); // => "LYCRA is so cooooool ♪(o∀o)っ"
 
 const nokia = new Phone('nokia');
-nokia.camera(); // "LYCRA is so cooooool ♪(o∀o)っ"
+nokia.camera(); // => "LYCRA is so cooooool ♪(o∀o)っ"
 ```
 
 上面代码在 xiaomi 的原型上添加了一个 camera() 方法，由于 xiaomi 的原型就是 huawei 的原型，因此 huawei 也可以调用这个方法。而且，此后新建的实例 nokia 也可以调用这个方法。这意味着，使用实例的 \_\_proto\_\_ 属性改写原型，必须相当谨慎，不推荐使用，因为这会改变 class 的原始定义，影响到所有实例。~~不是所有相机都叫莱卡~~

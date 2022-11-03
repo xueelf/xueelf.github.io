@@ -21,8 +21,8 @@ JavaScript 中也可以使用 `var` 来声明变量，不仅限于此，还有 `
 var world = 'world';
 let sekai = '西园寺世界';
 
-console.log(world); // world
-console.log(sekai); // 西园寺世界
+console.log(world); // => world
+console.log(sekai); // => 西园寺世界
 ```
 
 但实际上 `var` 却是一头远古巨兽，JavaScript 在设计初期，作为一门网页脚本语言并未做过多的考虑。随着时间的推移，项目中大量使用 `var` 会导致许多诡异的问题，从而促使了 `let` 与 `const` 的诞生。
@@ -45,7 +45,7 @@ console.log(sekai); // 西园寺世界
 
 ```javascript
 for (var i = 0; i < 10; i++) { }
-console.log(i); // 10
+console.log(i); // => 10
 ```
 
 上列就是一个最简单的例子，for 循环都结束了，却仍然可以访问到变量 i。试想一下，如果变量名不是用的 i，而是开发中最为常见的 item 会怎么样？
@@ -67,7 +67,7 @@ console.log(i); // 10
   </ul>
 
   <script type="text/javascript">
-    var lis = document.querySelectorAll('li');
+    var lis = document.getElementsByTagName('li');
 
     for (var i = 0; i < lis.length; i++) {
       lis[i].addEventListener('click', function () {
@@ -82,7 +82,7 @@ console.log(i); // 10
 
 再来看这段代码，可以说这段代码在以前是非常常见的，如果你接触编程比较早甚至还觉得非常亲切 ~~为了复古我甚至都在 script 里加了 type="text/javascript"~~，要实现的功能也很简单，为每个 li 标签加上点击事件，当该 li 被点击时修改当前的背景颜色。
 
-看着没什么问题对吧？但当你点击后控制台会提示 `Uncaught TypeError: Cannot read properties of undefined (reading 'style')`。
+看着没什么问题对吧？但当你点击后控制台会提示 `TypeError: Cannot read properties of undefined (reading 'style')`。
 
 这算是一个老生常谈的问题了，只要以前写过 ES5 都遇到过，也都知道该怎么避免。
 
@@ -128,20 +128,24 @@ console.log(i); // 10
 
 ```javascript
 var liangfen = 1;
-var liangfen = 2; // 这个 "var" 无效，因为变量已经声明过了（我说你吃了两碗凉粉那就是两碗）
+// 我说你吃了两碗凉粉那就是两碗
+var liangfen = 2;
 
-console.log(liangfen); // 2
+console.log(liangfen); // => 2
 ```
 
-使用 `var`，我们可以重复声明一个变量，不管多少次都行。如果对一个已经声明的变量使用 `var`，这条新的声明语句会被忽略。
+使用 `var`，我们可以重复声明一个变量，不管多少次都行。
 
 ```javascript
-// SyntaxError
 let liangfen = 1;
+/**
+ * 我就吃了一碗粉你凭什么说我吃了两碗？
+ * SyntaxError: Identifier 'liangfen' has already been declared
+ */
 let liangfen = 2;
 ```
 
-而使用 `let` 会直接提示语法错误，非常的银杏。（我就吃了一碗粉你凭什么说我吃了两碗？）
+而使用 `let` 会直接提示语法错误，非常的银杏。
 
 ## 变量提升
 
@@ -210,8 +214,9 @@ foo();
 function foo() {
   var message;
 
-  console.log(message); // undefined
-  message = 'hello world'; // 赋值
+  console.log(message); // => undefined
+  // 赋值
+  message = 'hello world';
 }
 
 foo();
@@ -222,14 +227,14 @@ foo();
 所以就算你写出了这种代码，它也不会报错。
 
 ```javascript
-console.log(message); // undefined
+console.log(message); // => undefined
 var message = 'hello world';
 ```
 
 而使用 `let` 会直接提示结构错误，非常的银杏。
 
 ```javascript
-// ReferenceError
+// ReferenceError: Cannot access 'message' before initialization
 console.log(message);
 let message = 'hello world'; 
 ```
@@ -239,11 +244,11 @@ let message = 'hello world';
 只要块级作用域内存在 `let` 关键字，它所声明的变量就绑定了这个区域，不再受外部的影响。
 
 ```javascript
-// ReferenceError
 var message = 'hello world';
 
 if (true) {
   message = '西园寺世界';
+  // ReferenceError: Cannot access 'message' before initialization
   let message;
 }
 ```
@@ -255,8 +260,8 @@ ES6 明确规定，如果区块中存在 `let` 和 `const` 关键字，这个区
 在没有 `let` 之前，`typeof` 运算符是百分之百安全的，永远不会报错。现在这一点不成立了。这样的设计是为了让大家养成良好的编程习惯，变量一定要在声明之后使用，否则就报错。
 
 ```javascript
-// ReferenceError
 typeof message;
+// ReferenceError: Cannot access 'message' before initialization
 let message;
 ```
 
@@ -267,7 +272,8 @@ function foo(x = y, y = 2) {
   return [x, y];
 }
 
-foo(); // ReferenceError
+// ReferenceError: Cannot access 'y' before initialization at foo
+foo();
 ```
 
 上面代码与前面的有所不同，直到 foo 函数被调用前，始终都不会出现报错，是可以通过语法编译的。而报错是因为参数 x 默认值等于另一个参数 y，而此时 y 还没有声明，属于 "死区"。如果 y 的默认值是 x，就不会报错，因为此时 x 已经声明了。
@@ -278,7 +284,8 @@ foo(); // ReferenceError
 
 ```javascript
 const message = 'hello world';
-message = '西园寺世界'; // TypeError
+// TypeError: Assignment to constant variable.
+message = '西园寺世界';
 ```
 
 为什么 Object 和 Array 可以随意修改值？因为这两类是引用类型，并非基础数据类型，引用类型内部的值不管怎么变，其引用地址都是不变的。
@@ -290,8 +297,8 @@ const harem = wifes;
 wifes.push('美美');
 wifes.push('未奏希');
 
-console.log(harem); // ['镜华', '美美', '未奏希']
-console.log(harem === wifes); // true
+console.log(harem); // => ['镜华', '美美', '未奏希']
+console.log(harem === wifes); // => true
 ```
 
 当然，这是 JavaScript 的基础知识，由此可以引申出深拷贝与浅拷贝，但并不与本文章相关，便不在此做过多的赘述。~~才不是因为懒呢~~
