@@ -72,7 +72,7 @@ index_generator:
 # Category & Tag
 default_category: uncategorized
 category_map:
-  笔记: notes
+  笔记: note
   其它: other
 tag_map:
   代码: code
