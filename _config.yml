@@ -5,7 +5,7 @@
 # Site
 title: Yuki 妙妙屋
 subtitle: ""
-description: 我わすべてを愛する
+description: 溶けてしまいそう
 keywords:
   - Blog
   - 博客
@@ -18,7 +18,7 @@ timezone: Asia/Shanghai
 
 # URL
 url: https://blog.yuki.sh/
-permalink: :category/:hash/
+permalink: posts/:hash/
 permalink_defaults:
 pretty_urls:
   trailing_index: false
@@ -117,11 +117,19 @@ deploy:
   repo: https://github.com/dcyuki/dcyuki.github.io
   branch: gh-pages
 
+# ============================================================= #
+# ========================== Search =========================== #
+# ============================================================= #
+
 search:
   path: search.xml
   field: post
   content: true
   format: html
+
+# ============================================================= #
+# ============================ SEO ============================ #
+# ============================================================= #
 
 sitemap:
   path:
