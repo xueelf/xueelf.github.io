@@ -31,9 +31,9 @@ console.log(sekai); // => 西园寺世界
 
 这不由得让我想起当年教我 Java 的讲师，用的 MyEclipse 2012 + Tomcat 1.6 + JDK 1.6 开发，每次有人提出疑问都蜜汁自信说自己有十年开发经验，不可能出错。
 
-<span style="background: #000; color: #000;">低情商：用的都是十年前的老技术</span>
-<span style="background: #000; color: #000;">高情商：十年开发经验高级工程师</span>
-<span style="background: #000; color: #000;">他甚至连 class 都不 new！什么数据都直接塞 Map 里去传值，写 SQL 不换行，还一脸自信的说 "你们看我多厉害，一行就写完了"（指三张表联查 + 一大堆条件语句不换行）</span>
+<span title="你知道的太多了" style="background: #000; color: #000;">低情商：用的都是十年前的老技术</span>
+<span title="你知道的太多了" style="background: #000; color: #000;">高情商：十年开发经验高级工程师</span>
+<span title="你知道的太多了" style="background: #000; color: #000;">他甚至连 class 都不 new！什么数据都直接塞 Map 里去传值，写 SQL 不换行，还一脸自信的说 "你们看我多厉害，一行就写完了"（指三张表联查 + 一大堆条件语句不换行）</span>
 
 当然，也并不是说使用 var 不好，任何事物存在就有着自身的价值。Babel 以及 TypeScript 等库在编译后都多少会使用到 var 来声明变量，因为有着极强的兼容性。不过除开这种情况使用 var 就完全没必要了。~~我可从没说过只要用 var 声明变量的都是辣鸡啊，你们不要乱说啊~~
 
