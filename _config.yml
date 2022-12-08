@@ -80,6 +80,7 @@ tag_map:
   JavaScript: javascript
   反向代理: reverseproxy
   Pixiv: pixiv
+  Steam: steam
 
 # Metadata elements
 ## https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta
