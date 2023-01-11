@@ -14,7 +14,7 @@ specifiers:
   hexo-renderer-marked: ^6.0.0
   hexo-renderer-stylus: ^2.1.0
   hexo-server: ^3.0.0
-  hexo-theme-next: ^8.14.0
+  hexo-theme-next: ^8.14.1
   hexo-util: ^3.0.1
   js-yaml: ^4.1.0
 
@@ -32,7 +32,7 @@ dependencies:
   hexo-renderer-marked: 6.0.0
   hexo-renderer-stylus: 2.1.0
   hexo-server: 3.0.0
-  hexo-theme-next: 8.14.0
+  hexo-theme-next: 8.14.1
   hexo-util: 3.0.1
   js-yaml: 4.1.0
 
@@ -423,8 +423,8 @@ packages:
       domelementtype: 2.3.0
     dev: false
 
-  /dompurify/2.4.1:
-    resolution: {integrity: sha512-ewwFzHzrrneRjxzmK6oVz/rZn9VWspGFRDb4/rRtIsM1n36t9AKma/ye8syCpcw+XJ25kOK/hOG7t1j2I2yBqA==}
+  /dompurify/2.4.3:
+    resolution: {integrity: sha512-q6QaLcakcRjebxjg8/+NP+h0rPfatOgOzc46Fst9VAA3jF2ApfKBNKMzdP4DYTqtUMXSCd5pRS/8Po/OmoCHZQ==}
     dev: false
 
   /domutils/2.8.0:
@@ -523,7 +523,7 @@ packages:
   /filelist/1.0.4:
     resolution: {integrity: sha512-w1cEuf3S+DrLCQL7ET6kz+gmlJdbq9J7yXCSjK/OZCPA+qEN1WyF4ZAf0YYJa4/shHJra2t/d/r8SV4Ji+x+8Q==}
     dependencies:
-      minimatch: 5.1.1
+      minimatch: 5.1.2
     dev: false
 
   /fill-range/7.0.1:
@@ -744,10 +744,10 @@ packages:
     resolution: {integrity: sha512-/B/ud8q9pNldbipuv6cPyqL+fir973+blV79n6j59M3S8LRz/4hLXwd0TA4RHxcHVrgPakeWUtiH3UWo6B6Pag==}
     engines: {node: '>=14'}
     dependencies:
-      dompurify: 2.4.1
+      dompurify: 2.4.3
       hexo-util: 2.7.0
       jsdom: 20.0.3
-      marked: 4.2.3
+      marked: 4.2.5
     transitivePeerDependencies:
       - bufferutil
       - canvas
@@ -781,8 +781,8 @@ packages:
       - supports-color
     dev: false
 
-  /hexo-theme-next/8.14.0:
-    resolution: {integrity: sha512-AJjue2bE5lqaZ4cwBR/vnfy4nvTWr4MEJdbyZr6PAKPlnBbuYozgL1lOZ3SeLt3CUiSynPCrnClmtWvDz2q3iw==}
+  /hexo-theme-next/8.14.1:
+    resolution: {integrity: sha512-7nf9AXlCYt3dgfoFVPA1ck9bJw71BkTZsHX09z02HYlVt4SJ0cI2agW02GGfeg2n0SxJCnOGRlcmR9/37E3TEA==}
     dev: false
 
   /hexo-util/2.7.0:
@@ -830,9 +830,9 @@ packages:
       js-yaml: 4.1.0
       js-yaml-js-types: 1.0.1_js-yaml@4.1.0
       micromatch: 4.0.5
-      moize: 6.1.3
+      moize: 6.1.5
       moment: 2.29.4
-      moment-timezone: 0.5.39
+      moment-timezone: 0.5.40
       nunjucks: 3.2.3
       picocolors: 1.0.0
       pretty-hrtime: 1.0.3
@@ -1042,7 +1042,7 @@ packages:
       whatwg-encoding: 2.0.0
       whatwg-mimetype: 3.0.0
       whatwg-url: 11.0.0
-      ws: 8.11.0
+      ws: 8.12.0
       xml-name-validator: 4.0.0
     transitivePeerDependencies:
       - bufferutil
@@ -1069,14 +1069,14 @@ packages:
       tslib: 2.4.1
     dev: false
 
-  /marked/4.2.3:
-    resolution: {integrity: sha512-slWRdJkbTZ+PjkyJnE30Uid64eHwbwa1Q25INCAYfZlK4o6ylagBy/Le9eWntqJFoFT93ikUKMv47GZ4gTwHkw==}
+  /marked/4.2.5:
+    resolution: {integrity: sha512-jPueVhumq7idETHkb203WDD4fMA3yV9emQ5vLwop58lu8bTclMghBWcYAavlDqIEMaisADinV1TooIFCfqOsYQ==}
     engines: {node: '>= 12'}
     hasBin: true
     dev: false
 
-  /micro-memoize/4.0.12:
-    resolution: {integrity: sha512-F3yjoyLiNjspll/Peo1hWgUGO8p2q7tjQZDYqAUd1CcC4MHYk+FtIJUK3xKiRAi703ymx1YkGgqQEozXMmK1nQ==}
+  /micro-memoize/4.0.14:
+    resolution: {integrity: sha512-2tzWP1w2Hh+r7kCYa4f//jpBEA6dAueiuLco38NxfjF9Py3KCCI7wVOTdCvOhmTC043t+ulclVBdl3v+s+UJIQ==}
     dev: false
 
   /micromatch/4.0.5:
@@ -1122,8 +1122,8 @@ packages:
       brace-expansion: 1.1.11
     dev: false
 
-  /minimatch/5.1.1:
-    resolution: {integrity: sha512-362NP+zlprccbEt/SkxKfRMHnNY85V74mVnpUpNyr3F35covl09Kec7/sEFLt3RA4oXmewtoaanoIf67SE5Y5g==}
+  /minimatch/5.1.2:
+    resolution: {integrity: sha512-bNH9mmM9qsJ2X4r2Nat1B//1dJVcn3+iBLa3IgqJ7EbGaDNepL9QSHOxN4ng33s52VMMhhIfgCYDk3C4ZmlDAg==}
     engines: {node: '>=10'}
     dependencies:
       brace-expansion: 2.0.1
@@ -1133,15 +1133,15 @@ packages:
     resolution: {integrity: sha512-bzfL1YUZsP41gmu/qjrEk0Q6i2ix/cVeAhbCbqH9u3zYutS1cLg00qhrD0M2MVdCcx4Sc0UpP2eBWo9rotpq6g==}
     dev: false
 
-  /moize/6.1.3:
-    resolution: {integrity: sha512-Cn+1T5Ypieeo46fn8X98V2gHj2VSRohVPjvT8BRvNANJJC3UOeege/G84xA/3S9c5qA4p9jOdSB1jfhumwe8qw==}
+  /moize/6.1.5:
+    resolution: {integrity: sha512-Fu46qKV9F8DOi2vXimR3yRw/JAJfFRQEFZeclvOFnG92AEFERqwFtu4PIxETYFtCghHGlU1itKcvvNioKgWGIw==}
     dependencies:
       fast-equals: 3.0.3
-      micro-memoize: 4.0.12
+      micro-memoize: 4.0.14
     dev: false
 
-  /moment-timezone/0.5.39:
-    resolution: {integrity: sha512-hoB6suq4ISDj7BDgctiOy6zljBsdYT0++0ZzZm9rtxIvJhIbQ3nmbgSWe7dNFGurl6/7b1OUkHlmN9JWgXVz7w==}
+  /moment-timezone/0.5.40:
+    resolution: {integrity: sha512-tWfmNkRYmBkPJz5mr9GVDn9vRlVZOTe6yqY92rFxiOdWXbjaR0+9LwQnZGGuNR63X456NqmEkbskte8tWL5ePg==}
     dependencies:
       moment: 2.29.4
     dev: false
@@ -1325,8 +1325,8 @@ packages:
     resolution: {integrity: sha512-E/ZsdU4HLs/68gYzgGTkMicWTLPdAftJLfJFlLUAAKZGkStNU72sZjT66SnMDVOfOWY/YAoiD7Jxa9iHvngcag==}
     dev: false
 
-  /punycode/2.1.1:
-    resolution: {integrity: sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==}
+  /punycode/2.2.0:
+    resolution: {integrity: sha512-LN6QV1IJ9ZhxWTNdktaPClrNfp8xdSAYS0Zk2ddX7XsXZAxckMHPCBcHRo0cTcEIgYPRiGEkmji3Idkh2yFtYw==}
     engines: {node: '>=6'}
     dev: false
 
@@ -1563,7 +1563,7 @@ packages:
     engines: {node: '>=6'}
     dependencies:
       psl: 1.9.0
-      punycode: 2.1.1
+      punycode: 2.2.0
       universalify: 0.2.0
       url-parse: 1.5.10
     dev: false
@@ -1572,7 +1572,7 @@ packages:
     resolution: {integrity: sha512-l7FvfAHlcmulp8kr+flpQZmVwtu7nfRV7NZujtN0OqES8EL4O4e0qqzL0DC5gAvx/ZC/9lk6rhcUwYvkBnBnYA==}
     engines: {node: '>=12'}
     dependencies:
-      punycode: 2.1.1
+      punycode: 2.2.0
     dev: false
 
   /tslib/2.4.1:
@@ -1680,12 +1680,12 @@ packages:
     resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==}
     dev: false
 
-  /ws/8.11.0:
-    resolution: {integrity: sha512-HPG3wQd9sNQoT9xHyNCXoDUa+Xw/VevmY9FoHyQ+g+rrMn4j6FB4np7Z0OhdTgjx6MgQLK7jwSy1YecU1+4Asg==}
+  /ws/8.12.0:
+    resolution: {integrity: sha512-kU62emKIdKVeEIOIKVegvqpXMSTAMLJozpHZaJNDYqBjzlSYXQGviYwN1osDLJ9av68qHd4a2oSjd7yD4pacig==}
     engines: {node: '>=10.0.0'}
     peerDependencies:
       bufferutil: ^4.0.1
-      utf-8-validate: ^5.0.2
+      utf-8-validate: '>=5.0.2'
     peerDependenciesMeta:
       bufferutil:
         optional: true
