@@ -1,0 +1,324 @@
+---
+title: 如何在 JavaScript 中获取调用栈
+category:
+  - 笔记
+tags:
+  - 代码
+  - JavaScript
+date: 2023-01-04 21:47:40
+---
+在 Java 中，我们可以通过 `getStackTrace` 来获取调用栈信息，若是 PHP 就更简单了，直接调用 `debug_backtrace` 函数就可以打印出各类数据。
+
+可是，在 JavaScript 中的表现又如何？说到底，作为一门不依赖于操作系统的脚本语言，究竟能不能主动获取到堆栈的相关信息？
+
+<!-- more -->
+
+## 什么是调用栈？
+
+调用栈到底是什么？又能用来做些什么？在什么情况下会用到？
+
+说来也是巧合，在这之前，我从未想过用 JS 去操作堆栈，因为在平时的工作中，哪怕是后端开发也会很少接触到，更别说是前端了。
+
+这里就不解释一些底层原理了，简单来说，调用栈是解释器追踪函数执行流的一种机制。当执行环境中调用了多个函数时，通过这种机制，我们能够追踪到哪个函数正在执行，执行的函数体中又调用了哪个函数。
+
+当函数被调用的时候，解析器就会把这个函数给添加到调用栈中，如果函数里面还有调用其他函数的话，内部被调用的函数就会继续被添加到调用栈中去，最后当函数执行结束便会从调用栈清除。
+
+```javascript
+function greeting() {
+   // [1] Some codes here
+   sayHi();
+   // [2] Some codes here
+}
+function sayHi() {
+   return 'hello world';
+}
+
+// 调用 `greeting` 函数
+greeting();
+
+// [3] Some codes here
+```
+
+例如上列的代码块，执行顺序是这样的：
+
+① 执行到函数 `greeting()` 的时候，把 `greeting()` 添加到调用栈列表中并执行
+② 执行 `greeting()` 函数中调用 `sayHi()` 函数之前的代码
+③ 执行到 `sayHi()` 函数的时候，将 `sayHi()` 函数添加到调用栈并执行
+④ `sayHi()` 函数执行结束，从代码栈中清除，并执行 `greeting()` 函数之后的代码
+⑤ `greeting()` 执行完毕，从调用栈清除
+⑥ 继续执行接下来的代码
+
+如果调用栈空间被占满了，就会引发 **堆栈溢出**，这也是为什么在实际开发中不鼓励使用递归的原因，因为一旦处理不当就会导致严重的后果。
+
+## 举个栗子
+
+既然知道了调用栈可以用来追踪函数，在什么情况下会使用到？为了更加直观的说明问题，这里我们可以拿火影来举例，使用 typescript 编写方便区分数据类型。 ~~（不会吧不会吧，不会有人没看过火影吧）~~
+
+### 血轮眼
+
+写轮眼，作为只有宇智波一族获得遗传的血继限界，它并非是天生获得的，而是需要后天开眼，而写轮眼也分为多个阶段，普通（单勾、双勾、三勾）、万花筒、永恒万花筒、轮回眼，我们可以先创建下列枚举
+
+```typescript
+enum SharinganStage {
+  /** 未开眼 */
+  none = 0,
+  /** 一勾 */
+  ichi,
+  /** 双勾 */
+  ni,
+  /** 三勾 */
+  san,
+  /** 万花筒 */
+  mangekyou,
+}
+```
+
+随着持有者的情绪波动，血轮眼会自我进化，而进化至万花筒以上的阶段又会有其独特的瞳术，例如月读、天照等，所以我们创建 `Sharingan` 类。
+
+```typescript
+class Sharingan {
+  /** 阶段 */
+  public stage: SharinganStage;
+  /** 瞳术 */
+  public skill?: Function;
+
+  constructor() {
+    this.stage = SharinganStage.none;
+  }
+
+  /** 进化 */
+  public evolution(): void {
+    this.stage++;
+
+    if (this.stage > 3) {
+      /**
+       * 获取随机瞳术
+       * 
+       * this.skill = getRandomSkill();
+       */
+    }
+  }
+}
+```
+
+### 瞳术
+
+可以看到 `skill` 并不是非空字段，那么瞳术要从何而来？其实这里的瞳术我们可以简单理解为就是一个 `function` 函数，根据项目的实际需求可以有以下两种设计方案
+
+第一种可以单独创建一个文件夹，专门用来存放各类 `index.ts` 文件，这有点类似 `component` 或 `plugin` 的模式
+
+```text
+.
+├─ tsukuyomi.ts        月读
+├─ amaterasu.ts        天照
+├─ kamui.ts            神威
+└─ kagutsuchi.ts       加具土命
+```
+
+第二种可以直接在 `index.ts` 创建对应函数并将其存入数组
+
+```typescript
+const tsukuyomi = () => { };
+const amaterasu = () => { };
+const kamui = () => { };
+const kagutsuchi = () => { };
+
+export const skills = [
+  tsukuyomi, amaterasu, kamui, kagutsuchi,
+];
+```
+
+现在我们就可以根据代码实际情况，来编写出 `getRandomSkill` 函数，调用即可随机获取一种瞳术并返回。
+
+### 二柱子
+
+现在我们就可以编写忍者类了，每个忍者都有着自己独特的名字及各类属性和方法
+
+```typescript
+class Ninja {
+  public leftEye: unknown;
+  public rightEye: unknown;
+
+  constructor(
+    public name: string,
+  ) {
+
+  }
+
+  public kill(ninja: Ninja): void {
+    ninja.die();
+  }
+
+  public die(): void {
+    this.say('人被杀就会死');
+  }
+
+  public say(word: string): void {
+    console.log(word);
+  }
+}
+```
+
+而宇智波一族出生就继承了血轮眼，在其产生极为强烈的情感时就会让血轮眼进化，而杀死至亲之人就是其中之一，我们接着继承 `Ninja` 类创建宇智波类
+
+```typescript
+class Uchiha extends Ninja {
+  public leftEye: Sharingan;
+  public rightEye: Sharingan;
+
+  constructor(name: string) {
+    super(`宇智波${name}`);
+
+    this.leftEye = new Sharingan();
+    this.rightEye = new Sharingan();
+  }
+
+  /** 重写 kill 方法 */
+  public kill(ninja: Ninja): void {
+    ninja.die();
+    this.dokidoki();
+  }
+
+  private dokidoki() {
+    this.leftEye.evolution();
+    this.rightEye.evolution();
+  }
+}
+```
+
+### 现在是幻想时间
+
+所有代码都编写完成，那么在岸本老贼的剧本里，二柱子是什样得到万花筒血轮眼的？
+
+```typescript
+const sasuke = new Uchiha('佐助');
+const itachi = new Uchiha('鼬');
+
+// 二柱子成功获得了天照与加具土命
+sasuke.kill(itachi);
+
+const obito = new Uchiha('带土');
+
+// 二柱子发动了天照 ⚛_⚛
+sasuke.leftEye.skill!();
+
+// 哼哼哼啊啊啊啊啊啊啊啊
+obito.say('烫烫烫锟斤拷');
+// 带土发动了神威 ✇_✇
+obito.rightEye.skill!();
+// 带土活了下来，天照又没能烫死人
+```
+
+乍一看没什么问题对吧？但是代码并不能像岸本老贼那样按剧本出牌，在程序（观众）眼里，二柱子根本就不知道自己开眼后获得了什么瞳术。~~不过在见到带土后，二柱子也确实不知道釉把天照给了自己~~
+
+### 我要五彩斑斓的黑
+
+不知道是什么瞳术就不知道嘛，知道这玩意又有啥用？
+
+问得好，也许对程序员（读者）而言，这种事情怎么样都无所谓，但是岸本（产品）不一样。你永远都不知道下一话会添加哪些新的设定（需求），剧情会有什么新的展开，一切都充满了未知。
+
+例如这个时候，就有了一个新的设定，在发动瞳术的时候需要大声喊出瞳术的名字。在我们之前写好的代码中，二柱子如何去获取到 `kill` 的相关信息？
+
+要实现也很简单，方法也有许许多多，但这些的前提，都是在理想情况下
+
+- 我可以在 `Sharingan` 类下面直接追加 `name` 属性
+- 我也可以在 `getRandomSkill` 调用时返回 `name` 字段
+- 我甚至还能创建 `getSkill` 函数，在 `evolution` 调用时随机生成 `name` 主动获取指定函数
+- ...
+
+这样会有什么问题？首先 `Sharingan` 的 `skill` 属性本身就是不是非空字段，我们并不知道 `skill` 会在何时被生成、何时被获取以及何时被调用。
+
+如果在 `skill` 为空的情况下擅自调用，基于现有的代码，必然要做大量的修改，添加大量的条件语句，来防止意料之外的情况发生。而且前提是 `skill` 必须返回的是一个函数，如果 `getRandomSkill` 返回的不是一个函数，而是一个模块又会怎么样？
+
+所以我们静下心来仔细一想，`skill` 被执行的共同点是什么？文件名或函数名就是其 `name` 的唯一标识，是不是我们并不用将一个无关紧要的字符串传过来传过去？如果能直接获取到调用栈，是不是也不用将以前已有的逻辑推倒重做？
+
+正是因为在某次开发的过程中我遇到了类似的情况，所以就有了操作调用栈这个想法。当函数调用另一个函数的时候，获取调用栈直接输出被调用者的信息，这是最简单也是最便捷的方案。
+
+## 如何获取调用栈
+
+我当时立即在 MDN 查阅了 stack、trace 等关键字的相关 API，不过没有找到令人满意的结果。JS 并没有提供主动获取调用栈的方法，但是我找到了 `Error.prototype.stack` 这么一个奇怪的东西。
+
+该特性 **并不是 JS 的标准**，最初是由 Firefox 定义，作为 Error 对象的栈属性为其提供了一种函数追踪方式。虽然没有标准的定义，但后来 Safari、Opera、Chrome 也都定义了自己的 `error.stack` 格式
+
+```javascript
+function trace() {
+  try {
+    throw new Error('stack');
+  }
+  catch (error) {
+    console.log(error.stack);
+  }
+}
+
+function b() {
+  trace();
+}
+
+function a() {
+  b();
+}
+
+a();
+```
+
+例如上面这段代码，我们可以直接得到调用栈相关信息，下面分别是 `Chrome` 和 `Firefox` 的输出
+
+```tex
+Error: stack
+  at trace (index.js:3:13)
+  at b (index.js:11:5)
+  at a (index.js:15:5)
+```
+
+```tex
+trace@file:///index.js:3:13
+b@file:///index.js:11:5
+a@file:///index.js:15:5
+```
+
+## 自定义输出格式
+
+虽然通过 `error.stack` 我们成功获取到了调用栈信息，但是新的问题又出现了，各大 runtime 对于 `stack` 并没有一个标准，可以看到上面输出的文本格式都有所不同，而且仅仅通过字符串，也并不满足我们的需求。
+
+正当我快要放弃的时候，我又发现了一个奇怪的东西，V8 提供了一个 `Error.prepareStackTrace()` 的函数，允许用户提供自定义的堆栈跟踪格式。
+
+这不正是我们想要的么！而且 V8 还提供了各种各样的方法，不管是函数名、文件名、包括代码行数和内部属性都可以全部获取。有了 `prepareStackTrace()` 我们甚至可以实现各种各样比较 cool 的东西，例如之后我自己实现了一个 module 模块热更新。
+
+```javascript
+function getStack() {
+  const orig = Error.prepareStackTrace;
+  Error.prepareStackTrace = (_, stack) => stack;
+
+  const error = new Error();
+  const stack = error.stack;
+  Error.prepareStackTrace = orig;
+
+  return stack;
+}
+```
+
+这样我们就可以使用 `getStack()` 获取调用栈信息了，需要注意的是 `Error.prepareStackTrace` 一定要在获取 `stack` 后将其还原，不然你整个项目的 Error 格式就全变了
+
+## callsite
+
+上面那段代码在我的项目里已经使用了三年，最近在写这篇文章的时候无意间发现了一个名为 callsite 的库，虽然已经 7 年没更新，但是周下载量居然有 200w+，一看居然还是 tj 大佬的作品
+
+```javascript
+module.exports = function(){
+  var orig = Error.prepareStackTrace;
+  Error.prepareStackTrace = function(_, stack){ return stack; };
+  var err = new Error;
+  Error.captureStackTrace(err, arguments.callee);
+  var stack = err.stack;
+  Error.prepareStackTrace = orig;
+  return stack;
+};
+```
+
+源码非常简单，只有上面 9 行，和我自己写的几乎没有区别，不由得感叹人家大佬 7 年前就玩转 JS 了，看来我的学习之路还远远不够呀~
+
+## 参考文献
+
+- [MDN](https://developer.mozilla.org/zh-CN/docs/Glossary/Call_stack)
+- [callsite](https://github.com/tj/callsite)
+- [V8 Stack trace API](https://v8.dev/docs/stack-trace-api)
