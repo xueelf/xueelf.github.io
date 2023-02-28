@@ -30,7 +30,7 @@ var xiaomi = new Phone('xiaomi');
 xiaomi.call(); // => hello world from xiaomi
 ```
 
-各类变量中，只有 function 函数才有 `prototype` 属性，原型属性上又有着 `constructor()` 方法，而这很容易让新学习这门语言的程序员感到困惑。
+各类变量中，只有 function 函数才有 prototype 属性，原型属性上又有着 constructor() 方法，而这很容易让新学习这门语言的程序员感到困惑。
 
 ```javascript
 function Phone() { }
@@ -70,7 +70,7 @@ console.log(Phone === Phone.prototype.constructor); // => true
 
 ## constructor() 方法
 
-`constructor()` 方法是类的默认方法，通过 new 关键字生成对象实例时，自动调用该方法。一个类必须有 constructor() 方法，如果没有显式定义，一个空的 constructor() 方法会被默认添加。
+constructor() 方法是类的默认方法，通过 new 关键字生成对象实例时，自动调用该方法。一个类必须有 constructor() 方法，如果没有显式定义，一个空的 constructor() 方法会被默认添加。
 
 ```javascript
 class Phone { }
@@ -145,10 +145,10 @@ console.log(Object.keys(PhoneCls.prototype)); // => []
 
 ## 实例对象
 
-类的属性和方法，除非显式定义在其本身 this 上，否则都是定义在 `__proto__` 原型上。
+类的属性和方法，除非显式定义在其本身 this 上，否则都是定义在 \_\_proto\_\_ 原型上。
 
 ```javascript
-class PhoneCls {
+class Phone {
   constructor(brand) {
     this.brand = brand;
   }
@@ -158,7 +158,7 @@ class PhoneCls {
   }
 }
 
-const huawei = new PhoneCls('huawei');
+const huawei = new Phone('huawei');
 
 huawei.call(); // => hello world from huawei
 huawei.hasOwnProperty('brand'); // => true
@@ -166,9 +166,7 @@ huawei.hasOwnProperty('call'); // => false
 huawei.__proto__.hasOwnProperty('call') // => true
 ```
 
-上面代码中，brand 是实例对象 huawei 自身的属性（因为定义在 this 对象上），所以 hasOwnProperty() 方法返回 true，而 call() 是原型对象的属性（因为定义在 Phone 类上），所以 hasOwnProperty() 方法返回false。
-
-这些都与 ES5 的行为保持一致，但是 `class` 的写法明显会更加优雅，不用重复敲大量的 `prototype` 来定义属性，代码看着也更加简洁。
+上面代码中，brand 是实例对象 huawei 自身的属性（因为定义在 this 对象上），所以 hasOwnProperty() 方法返回 true，而 call() 是原型对象的属性（因为定义在 Phone 类上），所以 hasOwnProperty() 方法返回false。这些都与 ES5 的行为保持一致。
 
 与 ES5 一样，类的所有实例共享一个原型对象。
 
@@ -189,9 +187,9 @@ const huawei = new Phone('huawei');
 console.log(xiaomi.__proto__ === huawei.__proto__); // => true
 ```
 
-上面代码中，xiaomi 和 huawei 都是 Phone 的实例，它们的原型都是 Phone.prototype，所以 `__proto__` 属性是相等的。
+上面代码中，xiaomi 和 huawei 都是 Phone 的实例，它们的原型都是 Phone.prototype，所以 \_\_proto\_\_ 属性是相等的。
 
-这也意味着，可以通过实例的 `__proto__` 属性为 class 添加方法。
+这也意味着，可以通过实例的 \_\_proto\_\_ 属性为 class 添加方法。
 
 ```javascript
 const xiaomi = new Phone('xiaomi');
@@ -206,37 +204,11 @@ const nokia = new Phone('nokia');
 nokia.camera(); // => "LYCRA is so cooooool ♪(o∀o)っ"
 ```
 
-上面代码在 xiaomi 的原型上添加了一个 camera() 方法，由于 xiaomi 的原型就是 huawei 的原型，因此 huawei 也可以调用这个方法。而且，此后新建的实例 nokia 也可以调用这个方法。这意味着，使用实例的 `__proto__` 属性改写原型，必须相当谨慎，不推荐使用，因为这会改变 class 的原始定义，影响到所有实例。~~不是所有相机都叫莱卡~~
+上面代码在 xiaomi 的原型上添加了一个 camera() 方法，由于 xiaomi 的原型就是 huawei 的原型，因此 huawei 也可以调用这个方法。而且，此后新建的实例 nokia 也可以调用这个方法。这意味着，使用实例的 \_\_proto\_\_ 属性改写原型，必须相当谨慎，不推荐使用，因为这会改变 class 的原始定义，影响到所有实例。~~不是所有相机都叫莱卡~~
 
 ## 继承
 
-呐，ES5 的继承有四样写法，你知道么？
-
 > TODO
-
-ES6：
-
-```javascript
-class Phone {
-  constructor(brand) {
-    this.brand = brand;
-  }
-
-  call() {
-    console.log(`hello world from ${this.brand}`);
-  }
-}
-
-class Huawei extends Phone {
-  constructor(model) {
-    this.model = model;
-  }
-
-  shootMoon() {
-
-  }
-}
-```
 
 ## 还没想好怎么写 |ू･ω･` )
 
