@@ -116,7 +116,7 @@ theme: next
 deploy:
   type: "git"
   repo: https://github.com/dcyuki/dcyuki.github.io
-  branch: gh-pages
+  branch: github-pages
 
 # ============================================================= #
 # ========================== Search =========================== #
