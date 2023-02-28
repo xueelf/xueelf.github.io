@@ -23,11 +23,11 @@ jobs:
           cache: npm
       - run: npm install
       - name: Build
-        run: npm run build --deploy
+        run: npm run deploy -g
       - uses: actions/configure-pages@v2
       - uses: actions/upload-pages-artifact@v1
         with:
-          path: .vitepress/dist
+          path: .deploy_git
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v1
