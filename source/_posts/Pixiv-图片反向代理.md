@@ -60,20 +60,20 @@ server {
 没有服务器也没关系，可以利用 Cloudflare 的 Workers 白嫖，每日免费提供 10 万次请求，完全满足日常使用。~~总不至于不够用吧？别冲了，人要冲死了~~
 
 ```javascript
-addEventListener('fetch', event => {
-  const url = new URL(event.request.url);
-  url.hostname = 'i.pximg.net';
+export default {
+  async fetch(request) {
+    const someHost = 'i.pximg.net';
+    const someUrl = 'https://www.pixiv.net/';
 
-  const request = new Request(url, event.request);
-  event.respondWith(
-    fetch(request, {
-      headers: {
-        'Referer': 'https://www.pixiv.net/',
-        'User-Agent': 'Cloudflare Workers',
-      }
-    })
-  );
-});
+    const url = new URL(request.url);
+    url.hostname = someHost;
+
+    const requestInfo = new Request(url, request);
+    requestInfo.headers.set('Referer', someUrl);
+
+    return fetch(requestInfo);
+  },
+};
 ```
 
 ## 我要色色！
