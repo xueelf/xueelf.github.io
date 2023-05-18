@@ -40,7 +40,7 @@ console.log(Phone.prototype); // => {constructor: ƒ}
 
 ES6 提供了更接近传统语言的写法，引入了 class 这个概念，作为对象的模板。通过 `class` 关键字，可以定义类。
 
-基本上，ES6 的 class **可以看作** 只是一个语法糖，它的绝大部分功能，ES5 都可以做到，新的class写法只是让对象原型的写法更加清晰、更像面向对象编程的语法而已。上面的代码用 ES6 的 class 改写，就是下面这样。
+基本上，ES6 的 class **可以看作** 只是一个 `语法糖`，它的绝大部分功能，ES5 都可以做到，新的 class 写法只是让对象原型的写法更加清晰、更像面向对象编程的语法而已。上面的代码用 ES6 的 class 改写，就是下面这样。
 
 ```javascript
 class Phone {
@@ -87,14 +87,14 @@ class Phone {
 
 不管是百度也好，各大培训机构也好，人们都常说 class 是一个语法糖，因为完全可以在不使用 class 的情况下用 function 实现同样的效果。
 
-不过，这两者间并不能完全划等号，它们也有着些许不同。通过 class 创建的函数具有特殊的内部属性标记 `[[IsClassConstructor]]: true`。编程语言会在许多地方检查该属性。
+不过，这两者间 **并不能完全划等号**，它们也有着些许不同。通过 class 创建的函数具有特殊的内部属性标记 `[[IsClassConstructor]]: true`。编程语言会在许多地方检查该属性。
 
 例如，与普通函数不同，必须使用 new 来调用它。这是它与普通构造函数的一个主要区别，前者不用 new 也可以执行。
 
 ```javascript
 class Phone { }
 
-// TypeError: Class constructor Phone cannot be invoked without 'new'
+// Uncaught TypeError: Class constructor Phone cannot be invoked without 'new'
 Phone();
 ```
 
@@ -106,7 +106,7 @@ class Phone {
     var a, x, y;
     var r = 10;
 
-    // SyntaxError: Strict mode code may not include a with statement
+    // Uncaught SyntaxError: Strict mode code may not include a with statement
     with (Math) {
       a = PI * r * r;
       x = r * cos(PI);
@@ -116,7 +116,7 @@ class Phone {
 }
 ```
 
-类方法不可枚举，类定义将 prototype 中的所有方法的 enumerable 标志设置为 false。
+类方法不可枚举，类定义将 prototype 中的所有方法的 `enumerable` 标志设置为 false。
 
 ```javascript
 function PhoneFnc(brand) {
@@ -145,7 +145,7 @@ console.log(Object.keys(PhoneCls.prototype)); // => []
 
 ## 实例对象
 
-类的属性和方法，除非显式定义在其本身 this 上，否则都是定义在 \_\_proto\_\_ 原型上。
+类的属性和方法，除非 **显式定义** 在其本身 this 上，否则都是定义在 \_\_proto\_\_ 原型上。
 
 ```javascript
 class Phone {
@@ -208,7 +208,178 @@ nokia.camera(); // => "LYCRA is so cooooool ♪(o∀o)っ"
 
 ## 继承
 
-> TODO
+在看过了前面的内容，相信你对 Javascript 的 `类` 已经有了一个大致的了解。但这个时候你一定有一个疑问，它是如何做到继承的？
+
+~~呐，ES5 的继承有四样写法，你知道么？我教给你，记着！这些应该记着。将来做程序员的时候，开发要用。~~
+
+### 原型链继承
+
+```javascript
+function Phone(brand) {
+  this.brand = brand;
+}
+
+Phone.prototype.call = function () {
+  console.log('hello world from', this.brand);
+};
+
+function XiaomiPhone(model) {
+  this.model = model;
+}
+
+XiaomiPhone.prototype = new Phone('Xiaomi');
+XiaomiPhone.prototype.slogan = function () {
+  console.log('为发烧而生');
+}
+
+var xiaomi = new XiaomiPhone('13 Ultra');
+```
+
+思路：
+
+  1. 将子类的原型对象指向父类的实例对象
+
+缺点：
+
+  1. 原型中包含的引用值会在 **所有实例** 之间共享
+  2. 子类 **实例化** 时，无法给父类构造函数传参
+
+### 构造函数继承
+
+```javascript
+function Phone(brand, price) {
+  this.brand = brand;
+  this.price = price;
+
+  this.call = function () {
+    console.log('hello world from', this.brand);
+  };
+}
+
+function XiaomiPhone(model, price) {
+  Phone.call(this, 'Xiaomi', price);
+  this.model = model;
+}
+
+XiaomiPhone.prototype.slogan = function () {
+  console.log('为发烧而生');
+}
+
+var xiaomi = new XiaomiPhone('13 Ultra', 5999);
+```
+
+思路：
+
+  1. 让父类构造函数在 **子类内部** 运行
+  2. 将父类内部的 this 指向子类的实例
+
+缺点：
+
+  1. 父类必须在 **构造函数中** 定义方法
+  2. 子类不能访问父类 **原型上** 定义的属性
+
+### 原型继承（经典继承）
+
+```javascript
+function Phone(brand, price) {
+  this.brand = brand;
+  this.price = price;
+}
+
+Phone.prototype.call = function () {
+  console.log('hello world from', this.brand);
+};
+
+function XiaomiPhone(model, price) {
+  this.brand = 'Xiaomi';
+  this.model = model;
+  this.price = price;
+}
+
+XiaomiPhone.prototype = Phone.prototype;
+XiaomiPhone.prototype.constructor = Phone;
+XiaomiPhone.prototype.slogan = function () {
+  console.log('为发烧而生');
+}
+
+var xiaomi = new XiaomiPhone('13 Ultra');
+```
+
+思路：
+
+  1. 让子类的原型指向父类的原型
+
+缺点：
+
+  1. 子类会修改父类的原型对象，造成原型链结构混乱
+
+### 寄生继承
+
+```javascript
+function createPhone(object) {
+  function Phone() { }
+
+  Phone.prototype = object;
+  Phone.prototype.call = function () {
+    console.log('hello world from', this.brand);
+  };
+  return new Phone();
+}
+
+function createXiaomiPhone(model, price) {
+  var phone = createPhone({
+    brand: 'Xiaomi',
+    price: price,
+  });
+
+  phone.model = model;
+  phone.slogan = function () {
+    console.log('为发烧而生');
+  };
+
+  return phone;
+}
+
+var xiaomi = createXiaomiPhone('13 Ultra', 5999);
+```
+
+思路：
+
+  1. 结合工厂模式设计，创建一个封装继承的函数
+  2. 在函数内部将其 **实例化**，并在对象上做属性扩展并返回
+
+缺点：
+
+  1. 与构造函数继承比较相似，子类只能在函数内部定义方法，由于不能做到复用从而导致低效
+
+### ES6 extends
+
+上述的几种方式都有着各自的优劣，在实际开发中都会采用 **组合编写** 的方式来互补，而在 ES6 发布之后，类的继承有了质的飞跃：
+
+```javascript
+class Phone {
+  constructor(brand, price) {
+    this.brand = brand;
+    this.price = price;
+  }
+
+  call() {
+    console.log('hello world from', this.brand);
+  }
+}
+
+class XiaomiPhone extends Phone {
+  constructor(model, price) {
+    super('Xiaomi', price);
+
+    this.model = model;
+  }
+
+  slogan() {
+    console.log('为发烧而生');
+  }
+}
+```
 
 ## 还没想好怎么写 |ू･ω･` )
 
