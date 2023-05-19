@@ -354,7 +354,7 @@ var xiaomi = createXiaomiPhone('13 Ultra', 5999);
 
 ### ES6 extends
 
-上述的几种方式都有着各自的优劣，在实际开发中都会采用 **组合编写** 的方式来互补，而在 ES6 发布之后，类的继承有了质的飞跃：
+上述的几种方式都有着各自的优劣，在实际开发中都会采用 **组合编写** 的方式来互补。而在 ES6 发布之后，类的继承有了质的飞跃：
 
 ```javascript
 class Phone {
@@ -379,7 +379,11 @@ class XiaomiPhone extends Phone {
     console.log('为发烧而生');
   }
 }
+
+const xiaomi = XiaomiPhone('13 Ultra', 5999);
 ```
+
+![javascript extends](https://vip2.loli.io/2023/05/19/PYL6oUKdJA8Qsum.jpg)
 
 ## 还没想好怎么写 |ू･ω･` )
 
