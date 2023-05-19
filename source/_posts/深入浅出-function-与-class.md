@@ -94,7 +94,7 @@ class Phone {
 ```javascript
 class Phone { }
 
-// Uncaught TypeError: Class constructor Phone cannot be invoked without 'new'
+// TypeError: Class constructor Phone cannot be invoked without 'new'
 Phone();
 ```
 
@@ -106,7 +106,7 @@ class Phone {
     var a, x, y;
     var r = 10;
 
-    // Uncaught SyntaxError: Strict mode code may not include a with statement
+    // SyntaxError: Strict mode code may not include a with statement
     with (Math) {
       a = PI * r * r;
       x = r * cos(PI);
