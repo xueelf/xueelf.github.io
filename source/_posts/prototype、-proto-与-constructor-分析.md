@@ -7,6 +7,7 @@ tags:
   - JavaScript
 date: 2022-11-02 09:34:48
 ---
+
 Javascript 里面所有的数据类型都是 "对象"(object)，这一点与 Java 非常相似，所以很多人都会误以为 JavaScript 是一门面向对象的语言。
 
 但从严格意义上来讲，Javascript 并不是一门面向对象语言，而是基于对象，也可以说是基于原型。Javascript 并没有 "类"(class) 的概念，也没有提供像抽象、继承、重载等有关面向对象语言的许多特性，那么 Javascript 是如何进行对象实例化的？
@@ -22,10 +23,17 @@ Javascript 里面所有的数据类型都是 "对象"(object)，这一点与 Jav
 前面我们有说到，Javascript 里面所有的数据类型都是对象，其中每个对象上都有 \_\_proto\_\_ 和 constructor 这两个属性。
 
 ```javascript
-const number = new Number(114514);
-// 等价于 const array = new Array(19, 19, 810);
-const array = [19, 19, 810];
-const string = new String('哼哼哼啊');
+const array = [114, 514];
+const number = 1919810;
+const string = '哼哼哼啊';
+
+/**
+ * 上面的代码与这种的写法是等价的
+ *
+ * const array = new Array(114, 514);
+ * const number = new Number(1919810);
+ * const string = new String('哼哼哼啊');
+ */
 
 console.log(number instanceof Object); // => true
 console.log(array instanceof Object); // => true
@@ -36,7 +44,7 @@ console.log(string instanceof Object); // => true
 
 ```javascript
 // 等价于 var foo = new Function();
-function Foo() { };
+function Foo() { }
 
 console.log(Foo instanceof Object); // => true
 console.log(Foo.__proto__ === Function.prototype); // => true
@@ -46,7 +54,7 @@ console.log(Foo.prototype); // => {constructor: ƒ Foo(), [[Prototype]]: Object}
 对象的 \_\_proto\_\_ 属性是创建对象时自动添加的，默认值为其构造函数的 prototype。函数的 prototype 属性是定义时自动添加的，默认为 { }，一层一层的 \_\_proto\_\_ 便形成了原型链。
 
 ```javascript
-function Foo() { };
+function Foo() { }
 
 Foo.prototype.test = function () {
   console.log('hello world');
