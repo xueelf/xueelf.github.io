@@ -28,7 +28,7 @@ const number = 1919810;
 const string = '哼哼哼啊';
 
 /**
- * 上面的代码与这种的写法是等价的
+ * 上述代码与这种写法是等价的
  *
  * const array = new Array(114, 514);
  * const number = new Number(1919810);
@@ -90,7 +90,7 @@ constructor 属性也是对象才拥有的，它是从一个对象指向一个�
 
 不过在 ES6 中引入了 class 这个概念，能让定义类更接近传统写法，其本质也只是构造函数的语法糖，最后还是绕不开原型链。
 
-有兴趣你可以查阅 [深入浅出 function 与 class](./function-%E4%B8%8E-class-%E7%9A%84%E5%8C%BA%E5%88%AB.md) 一栏
+有兴趣你可以查阅 [深入浅出 function 与 class](./%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BA-function-%E4%B8%8E-class.md) 一栏
 
 ## 参考文献
 
