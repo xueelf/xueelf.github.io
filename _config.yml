@@ -193,3 +193,8 @@ meta_generator: true
 # include:
 # exclude:
 ignore:
+
+feed:
+  type: atom
+  path: atom.xml
+  limit: 0
