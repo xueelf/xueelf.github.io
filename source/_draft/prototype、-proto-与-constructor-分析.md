@@ -44,7 +44,7 @@ console.log(string instanceof Object); // => true
 
 ```javascript
 // 等价于 var foo = new Function();
-function Foo() { }
+function Foo() {}
 
 console.log(Foo instanceof Object); // => true
 console.log(Foo.__proto__ === Function.prototype); // => true
@@ -54,7 +54,7 @@ console.log(Foo.prototype); // => {constructor: ƒ Foo(), [[Prototype]]: Object}
 对象的 \_\_proto\_\_ 属性是创建对象时自动添加的，默认值为其构造函数的 prototype。函数的 prototype 属性是定义时自动添加的，默认为 { }，一层一层的 \_\_proto\_\_ 便形成了原型链。
 
 ```javascript
-function Foo() { }
+function Foo() {}
 
 Foo.prototype.test = function () {
   console.log('hello world');

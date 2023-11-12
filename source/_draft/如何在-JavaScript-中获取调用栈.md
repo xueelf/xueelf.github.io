@@ -7,6 +7,7 @@ tags:
   - JavaScript
 date: 2023-01-04 21:47:40
 ---
+
 在 Java 中，我们可以通过 `getStackTrace` 来获取调用栈信息，若是 PHP 就更简单了，直接调用 `debug_backtrace` 函数就可以打印出各类数据。
 
 可是，在 JavaScript 中的表现又如何？说到底，作为一门不依赖于操作系统的脚本语言，究竟能不能主动获取到堆栈的相关信息？
@@ -25,12 +26,12 @@ date: 2023-01-04 21:47:40
 
 ```javascript
 function greeting() {
-   // [1] Some codes here
-   sayHi();
-   // [2] Some codes here
+  // [1] Some codes here
+  sayHi();
+  // [2] Some codes here
 }
 function sayHi() {
-   return 'hello world';
+  return 'hello world';
 }
 
 // 调用 `greeting` 函数
@@ -93,7 +94,7 @@ class Sharingan {
     if (this.stage > 3) {
       /**
        * 获取随机瞳术
-       * 
+       *
        * this.skill = getRandomSkill();
        */
     }
@@ -118,14 +119,12 @@ class Sharingan {
 第二种可以直接在 `index.ts` 创建对应函数并将其存入数组
 
 ```typescript
-const tsukuyomi = () => { };
-const amaterasu = () => { };
-const kamui = () => { };
-const kagutsuchi = () => { };
+const tsukuyomi = () => {};
+const amaterasu = () => {};
+const kamui = () => {};
+const kagutsuchi = () => {};
 
-export const skills = [
-  tsukuyomi, amaterasu, kamui, kagutsuchi,
-];
+export const skills = [tsukuyomi, amaterasu, kamui, kagutsuchi];
 ```
 
 现在我们就可以根据代码实际情况，来编写出 `getRandomSkill` 函数，调用即可随机获取一种瞳术并返回。
@@ -139,11 +138,7 @@ class Ninja {
   public leftEye: unknown;
   public rightEye: unknown;
 
-  constructor(
-    public name: string,
-  ) {
-
-  }
+  constructor(public name: string) {}
 
   public kill(ninja: Ninja): void {
     ninja.die();
@@ -244,8 +239,7 @@ obito.rightEye.skill!();
 function trace() {
   try {
     throw new Error('stack');
-  }
-  catch (error) {
+  } catch (error) {
     console.log(error.stack);
   }
 }
@@ -304,10 +298,12 @@ function getStack() {
 上面那段代码在我的项目里已经使用了三年，最近在写这篇文章的时候无意间发现了一个名为 callsite 的库，虽然已经 7 年没更新，但是周下载量居然有 200w+，一看居然还是 tj 大佬的作品
 
 ```javascript
-module.exports = function(){
+module.exports = function () {
   var orig = Error.prepareStackTrace;
-  Error.prepareStackTrace = function(_, stack){ return stack; };
-  var err = new Error;
+  Error.prepareStackTrace = function (_, stack) {
+    return stack;
+  };
+  var err = new Error();
   Error.captureStackTrace(err, arguments.callee);
   var stack = err.stack;
   Error.prepareStackTrace = orig;

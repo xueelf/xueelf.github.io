@@ -1,12 +1,10 @@
 ---
 title: Pixiv 图片反向代理
 category:
-  - 教程
 tags:
-  - 反向代理
-  - Pixiv
 date: 2022-11-03 14:47:33
 ---
+
 众所周知，Pixiv 在大陆被墙，并且图片服务器域名 i.pximg.net 有盗链保护，只要 Referer 不是来自 Pixiv 的请求都会返回 403。那么，如何才能在大陆地区直接访问图片资源？
 
 <!-- more -->

@@ -7,6 +7,7 @@ tags:
   - JavaScript
 date: 2022-11-02 13:54:08
 ---
+
 如果你使用过 Swift 或者 C#，那么你一定对 var 非常熟悉。var 是 variable 或者是 variation 的简写，在编程语言中多用于定义变量的关键字，在一些操作系统中也能见到它的身影。
 
 JavaScript 中也可以使用 `var` 来声明变量，不仅限于此，还有 `let`、`const` 共三种方式创建变量。而如今却很少在 JS 中见到 `var` 的身影，这又是为什么？
@@ -44,7 +45,7 @@ console.log(sekai); // => 西园寺世界
 而 `var` 坑就坑在它没有块级作用域，用 `var` 声明变量的变量不是函数作用域就是全局作用域。
 
 ```javascript
-for (var i = 0; i < 10; i++) { }
+for (var i = 0; i < 10; i++) {}
 console.log(i); // => 10
 ```
 
@@ -53,30 +54,28 @@ console.log(i); // => 10
 ```html
 <!DOCTYPE html>
 <html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <title>Document</title>
-</head>
+  <body>
+    <ul>
+      <li>li1</li>
+      <li>li2</li>
+      <li>li3</li>
+    </ul>
 
-<body>
-  <ul>
-    <li>li1</li>
-    <li>li2</li>
-    <li>li3</li>
-  </ul>
+    <script type="text/javascript">
+      var lis = document.getElementsByTagName('li');
 
-  <script type="text/javascript">
-    var lis = document.getElementsByTagName('li');
-
-    for (var i = 0; i < lis.length; i++) {
-      lis[i].addEventListener('click', function () {
-        lis[i].style.background = 'skyblue';
-      });
-    }
-  </script>
-</body>
-
+      for (var i = 0; i < lis.length; i++) {
+        lis[i].addEventListener('click', function () {
+          lis[i].style.background = 'skyblue';
+        });
+      }
+    </script>
+  </body>
 </html>
 ```
 
@@ -205,7 +204,7 @@ foo();
 
 `var message = 'hello world'` 这行代码包含两个行为：
 
-1. 使用 `var` 声明变量  
+1. 使用 `var` 声明变量
 2. 使用 `=` 给变量赋值
 
 声明在函数刚开始执行的时候 "提升" 就被处理了，但是赋值操作始终是在它出现的地方才起作用。所以这段代码实际上是这样工作的：
@@ -236,7 +235,7 @@ var message = 'hello world';
 ```javascript
 // ReferenceError: Cannot access 'message' before initialization
 console.log(message);
-let message = 'hello world'; 
+let message = 'hello world';
 ```
 
 ## 暂时性死区
