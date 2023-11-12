@@ -7,6 +7,7 @@ tags:
   - JavaScript
 date: 2022-11-01 13:10:53
 ---
+
 在 JavaScript 中，生成实例对象有着 `new Function` 与 `new Class` 两种写法。
 
 尽管我们知道，传统 function 构造函数是 ES5 中的写法，而 class 则是在 ES6 新提出的关键字，那么这两种写法到底有着什么样的区别？
@@ -33,7 +34,7 @@ xiaomi.call(); // => hello world from xiaomi
 各类变量中，只有 function 函数才有 prototype 属性，原型属性上又有着 constructor() 方法，而这很容易让新学习这门语言的程序员感到困惑。
 
 ```javascript
-function Phone() { }
+function Phone() {}
 
 console.log(Phone.prototype); // => {constructor: ƒ}
 ```
@@ -60,7 +61,7 @@ huawei.call(); // => hello world from huawei
 这种新的 class 写法，本质上与文章开头的 ES5 的构造函数 Phone 是一致的，ES6 的类，**可以看作** 构造函数的另一种写法。
 
 ```javascript
-class Phone { }
+class Phone {}
 
 console.log(typeof Phone); // => "function"
 console.log(Phone === Phone.prototype.constructor); // => true
@@ -73,11 +74,11 @@ console.log(Phone === Phone.prototype.constructor); // => true
 constructor() 方法是类的默认方法，通过 new 关键字生成对象实例时，自动调用该方法。一个类必须有 constructor() 方法，如果没有显式定义，一个空的 constructor() 方法会被默认添加。
 
 ```javascript
-class Phone { }
+class Phone {}
 
 // 等价于
 class Phone {
-  constructor() { }
+  constructor() {}
 }
 ```
 
@@ -92,7 +93,7 @@ class Phone {
 例如，与普通函数不同，必须使用 new 来调用它。这是它与普通构造函数的一个主要区别，前者不用 new 也可以执行。
 
 ```javascript
-class Phone { }
+class Phone {}
 
 // TypeError: Class constructor Phone cannot be invoked without 'new'
 Phone();
@@ -163,10 +164,10 @@ const huawei = new Phone('huawei');
 huawei.call(); // => hello world from huawei
 huawei.hasOwnProperty('brand'); // => true
 huawei.hasOwnProperty('call'); // => false
-huawei.__proto__.hasOwnProperty('call') // => true
+huawei.__proto__.hasOwnProperty('call'); // => true
 ```
 
-上面代码中，brand 是实例对象 huawei 自身的属性（因为定义在 this 对象上），所以 hasOwnProperty() 方法返回 true，而 call() 是原型对象的属性（因为定义在 Phone 类上），所以 hasOwnProperty() 方法返回false。这些都与 ES5 的行为保持一致。
+上面代码中，brand 是实例对象 huawei 自身的属性（因为定义在 this 对象上），所以 hasOwnProperty() 方法返回 true，而 call() 是原型对象的属性（因为定义在 Phone 类上），所以 hasOwnProperty() 方法返回 false。这些都与 ES5 的行为保持一致。
 
 与 ES5 一样，类的所有实例共享一个原型对象。
 
@@ -230,19 +231,19 @@ function XiaomiPhone(model) {
 XiaomiPhone.prototype = new Phone('Xiaomi');
 XiaomiPhone.prototype.slogan = function () {
   console.log('为发烧而生');
-}
+};
 
 var xiaomi = new XiaomiPhone('13 Ultra');
 ```
 
 思路：
 
-  1. 将子类的原型对象指向父类的实例对象
+1. 将子类的原型对象指向父类的实例对象
 
 缺点：
 
-  1. 原型中包含的引用值会在 **所有实例** 之间共享
-  2. 子类 **实例化** 时，无法给父类构造函数传参
+1. 原型中包含的引用值会在 **所有实例** 之间共享
+2. 子类 **实例化** 时，无法给父类构造函数传参
 
 ### 构造函数继承
 
@@ -263,20 +264,20 @@ function XiaomiPhone(model, price) {
 
 XiaomiPhone.prototype.slogan = function () {
   console.log('为发烧而生');
-}
+};
 
 var xiaomi = new XiaomiPhone('13 Ultra', 5999);
 ```
 
 思路：
 
-  1. 让父类构造函数在 **子类内部** 运行
-  2. 将父类内部的 this 指向子类的实例
+1. 让父类构造函数在 **子类内部** 运行
+2. 将父类内部的 this 指向子类的实例
 
 缺点：
 
-  1. 父类必须在 **构造函数中** 定义方法
-  2. 子类不能访问父类 **原型上** 定义的属性
+1. 父类必须在 **构造函数中** 定义方法
+2. 子类不能访问父类 **原型上** 定义的属性
 
 ### 原型继承（经典继承）
 
@@ -300,24 +301,24 @@ XiaomiPhone.prototype = Phone.prototype;
 XiaomiPhone.prototype.constructor = Phone;
 XiaomiPhone.prototype.slogan = function () {
   console.log('为发烧而生');
-}
+};
 
 var xiaomi = new XiaomiPhone('13 Ultra');
 ```
 
 思路：
 
-  1. 让子类的原型指向父类的原型
+1. 让子类的原型指向父类的原型
 
 缺点：
 
-  1. 子类会修改父类的原型对象，造成原型链结构混乱
+1. 子类会修改父类的原型对象，造成原型链结构混乱
 
 ### 寄生继承
 
 ```javascript
 function createPhone(object) {
-  function Phone() { }
+  function Phone() {}
 
   Phone.prototype = object;
   Phone.prototype.call = function () {
@@ -345,12 +346,12 @@ var xiaomi = createXiaomiPhone('13 Ultra', 5999);
 
 思路：
 
-  1. 结合工厂模式设计，创建一个封装继承的函数
-  2. 在函数内部将其 **实例化**，并在对象上做属性扩展并返回
+1. 结合工厂模式设计，创建一个封装继承的函数
+2. 在函数内部将其 **实例化**，并在对象上做属性扩展并返回
 
 缺点：
 
-  1. 与构造函数继承比较相似，子类只能在函数内部定义方法，由于不能做到复用从而导致低效
+1. 与构造函数继承比较相似，子类只能在函数内部定义方法，由于不能做到复用从而导致低效
 
 ### ES6 extends
 

@@ -1,15 +1,17 @@
 ---
 title: {{ title }}
+author: 雪
 category:
-  - unknown
 tags:
-  - unknown
 date: {{ date }}
+headimg:
+references:
 ---
+
 preface
 
 <!-- more -->
 
-## Title
+## {{ title }}
 
 content
