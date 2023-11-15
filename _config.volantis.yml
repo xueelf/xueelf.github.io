@@ -40,7 +40,7 @@ site_footer:
   analytics: >
     <span id="lc-sv">本站总访问量为 <span id='number'><i class="fa-solid fa-loader fa-spin fa-fw" aria-hidden="true"></i></span> 次</span>
     <span id="lc-uv">访客数为 <span id='number'><i class="fa-solid fa-loader fa-spin fa-fw" aria-hidden="true"></i></span> 人</span>
-  copyright: "[Copyright © since 2022 xueelf](/)"
+  copyright: "[Copyright © since 2022 Yuki](/)"
   br: "<br>"
 
 # ---------------------------------------------------------------------------- #
@@ -97,14 +97,14 @@ sidebar:
       avatar: https://q1.qlogo.cn/g?b=qq&nk=2225151531&s=5
       shape: rectangle # circle, rectangle
       url: /about/
-      title: 雪
+      title: Yuki
       subtitle: 大切な人と、いつかまた巡り会えますように。
       jinrishici: false
       social:
         - icon: fa-solid fa-rss
           url: /atom.xml
         - icon: fa-solid fa-envelope
-          url: mailto:admin@xueelf.com
+          url: mailto:admin@yuki.sh
         - icon: fa-brands fa-github
           url: https://github.com/xueelf
         - icon: fa-brands fa-twitter

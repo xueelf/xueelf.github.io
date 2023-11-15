@@ -16,9 +16,9 @@ keywords:
   - 博客
   - Yuki
   - Yuki 妙妙屋
-  - blog.xueelf.com
+  - blog.yuki.sh
 # 君の名は。
-author: 雪
+author: Yuki
 # 网站使用的语言
 language: zh-CN
 # 网站时区
@@ -29,7 +29,7 @@ timezone: Asia/Shanghai
 # ---------------------------------------------------------------------------- #
 
 # 网址
-url: https://blog.xueelf.com/
+url: https://blog.yuki.sh/
 # 网站根目录
 root:
 # 文章的永久链接格式

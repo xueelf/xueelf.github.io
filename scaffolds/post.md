@@ -1,6 +1,6 @@
 ---
 title: {{ title }}
-author: 雪
+author: Yuki
 category:
 tags:
 date: {{ date }}
