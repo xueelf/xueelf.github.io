@@ -1,4 +1,4 @@
-# https://hexo.io/docs/configuration.html
+# https://hexo.io/zh-cn/docs/configuration.html
 
 # ---------------------------------------------------------------------------- #
 #                                     Site                                     #
@@ -179,10 +179,10 @@ theme: volantis
 theme_config:
 # 部署部分的设置
 # https://hexo.io/docs/one-command-deployment
-deploy:
-  type: "git"
-  repo: https://github.com/xueelf/xueelf.github.io/
-  branch: github-pages
+# deploy:
+#   type: "git"
+#   repo: https://github.com/xueelf/xueelf.github.io/
+#   branch: github-pages
 # Meta generator 标签
 meta_generator: true
 
