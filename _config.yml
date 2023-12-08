@@ -144,6 +144,7 @@ default_category: note
 category_map:
   笔记: note
   日记: diary
+  教程: course
 # 标签别名
 tag_map:
   代码: code
