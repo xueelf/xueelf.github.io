@@ -186,7 +186,7 @@ theme_config:
 #   repo: https://github.com/xueelf/xueelf.github.io/
 #   branch: github-pages
 # Meta generator 标签
-meta_generator: true
+meta_generator: false
 
 # ---------------------------------------------------------------------------- #
 #                       Include/Exclude Files or Folders                       #
@@ -200,3 +200,9 @@ feed:
   type: atom
   path: atom.xml
   limit: 0
+
+import:
+  head_begin:
+    - <meta name="google-site-verification" content="lfXOm0UB31IUvMF_99jdAPtrv761MQ7Do40C7Jepqi0" />
+    - <meta name="msvalidate.01" content="DBD73F6E5F9C945056DC99DC5F3A37C9">
+    - <meta name="baidu-site-verification" content="code-68kTD7oJfw">
