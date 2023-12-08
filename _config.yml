@@ -148,6 +148,7 @@ category_map:
 tag_map:
   代码: code
   JavaScript: javascript
+  API: api
 
 # ---------------------------------------------------------------------------- #
 #                              Date / Time format                              #
