@@ -164,3 +164,9 @@ plugins:
   #       - /images/pixiv/69707542.jpg
   darkmode:
     enable: true
+
+analytics:
+  leancloud:
+    app_id: 0dfitqFVnwsTtHuFIRbArRGg-MdYXbMMI
+    app_key: V0hLKelWjzNhS68H8SmCVi4q
+    custom_api_server:
