@@ -1,9 +1,9 @@
 ---
-title: {{ title }}
 author: Yuki
+title: {{ title }}
+date: {{ date }}
 category:
 tags:
-date: {{ date }}
 headimg:
 references:
 ---
