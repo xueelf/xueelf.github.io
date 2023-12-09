@@ -148,6 +148,7 @@ category_map:
 # 标签别名
 tag_map:
   代码: code
+  娱乐: fun
   JavaScript: javascript
   API: api
 
