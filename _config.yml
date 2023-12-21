@@ -145,6 +145,7 @@ category_map:
   笔记: note
   日记: diary
   教程: course
+  项目: project
 # 标签别名
 tag_map:
   代码: code
@@ -203,7 +204,9 @@ feed:
   limit: 0
 
 sitemap:
-  path: sitemap.xml
+  path:
+    - sitemap.xml
+    - sitemap.txt
   rel: false
   tags: true
   categories: true
