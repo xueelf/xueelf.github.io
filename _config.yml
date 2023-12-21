@@ -204,6 +204,9 @@ feed:
 
 sitemap:
   path: sitemap.xml
+  rel: false
+  tags: true
+  categories: true
 
 import:
   head_begin:
