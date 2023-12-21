@@ -202,6 +202,9 @@ feed:
   path: atom.xml
   limit: 0
 
+sitemap:
+  path: sitemap.xml
+
 import:
   head_begin:
     - <meta name="google-site-verification" content="lfXOm0UB31IUvMF_99jdAPtrv761MQ7Do40C7Jepqi0" />
