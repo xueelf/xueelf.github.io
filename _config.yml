@@ -70,7 +70,7 @@ skip_render:
 # ---------------------------------------------------------------------------- #
 
 # 新文章的文件名称
-new_post_name: :year-:month-:day.md
+new_post_name: :year_:month_:day.md
 # 预设布局
 default_layout: post
 # 在中文和英文之间加入空格
