@@ -204,9 +204,7 @@ feed:
   limit: 0
 
 sitemap:
-  path:
-    - sitemap.xml
-    - sitemap.txt
+  path: sitemap.xml
   rel: false
   tags: true
   categories: true
