@@ -45,13 +45,17 @@ dependencies:
     specifier: ^5.8.0
     version: 5.8.0
   stylus:
-    specifier: ^0.62.0
-    version: 0.62.0
+    specifier: ^0.63.0
+    version: 0.63.0
 
 packages:
 
   /@adobe/css-tools@4.3.2:
     resolution: {integrity: sha512-DA5a1C0gD/pLOvhv33YMrbf2FK3oUzwNl9oOJqE4XVjuEtt6XIakRcsd7eLiOSPkp1kTRQGICTA8cKra/vFbjw==}
+    dev: false
+
+  /@adobe/css-tools@4.3.3:
+    resolution: {integrity: sha512-rE0Pygv0sEZ4vBWHlAgJLGDU7Pm8xoO6p3wsEceb7GYAjScrOHpEo8KK/eVkAcnSM+slAEtXjA2JpdjLp4fJQQ==}
     dev: false
 
   /@tootallnate/once@2.0.0:
@@ -1470,6 +1474,19 @@ packages:
     hasBin: true
     dependencies:
       '@adobe/css-tools': 4.3.2
+      debug: 4.3.4
+      glob: 7.2.3
+      sax: 1.3.0
+      source-map: 0.7.4
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /stylus@0.63.0:
+    resolution: {integrity: sha512-OMlgrTCPzE/ibtRMoeLVhOY0RcNuNWh0rhAVqeKnk/QwcuUKQbnqhZ1kg2vzD8VU/6h3FoPTq4RJPHgLBvX6Bw==}
+    hasBin: true
+    dependencies:
+      '@adobe/css-tools': 4.3.3
       debug: 4.3.4
       glob: 7.2.3
       sax: 1.3.0
