@@ -28,7 +28,7 @@ jobs:
       - name: Install Dependencies
         run: bun install
       - name: Build
-        run: bun build
+        run: bun run build
       - name: Upload Artifact
         uses: actions/upload-pages-artifact@v3
         with:
